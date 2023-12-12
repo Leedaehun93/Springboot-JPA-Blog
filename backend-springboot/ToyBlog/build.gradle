@@ -1,0 +1,96 @@
+// 플러그인 정의 : Java 플러그인
+plugins {
+    //사용하는 언어
+    id 'java'
+    id 'war'
+    //프로젝트의 스프링부트 프레임워크의 버전설정
+    id 'org.springframework.boot' version '2.7.17'
+    // 프로젝트에 필요한 라이브러리를 관리해주는 툴(매니지먼트)의 버전
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+// 프로젝트정보
+group = 'com.example'
+// 첫번째 자리 : 메이저 업데이트, 두번째 자리 : 마이너업데이트, 세번째 자리 : fix버전(오탈자, 이미지 변경)
+version = '0.0.1-SNAPSHOT'
+
+java {
+    // 자바버전
+    sourceCompatibility = '11'
+}
+
+// dependencies 라이브러리를 다운받은 사이트
+repositories {
+// 메이븐 사용
+    mavenCentral()
+}
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// dependencies-추가하고자 하는 라이브러리를 편리하게 넣을 수 있다.
+dependencies {
+
+    // 1. Spring Boot DevTools / Spring Boot Devtools를 설치하면 서버 재시작 없이도 클래스 변경시 서버가 자동으로 재기동 된다.
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // 2. Lombok / 롬복: 도메인(class)이 가져야할 getter, setter, builder등을 자동으로 코드생성 (@어노테이션) (단,컴파일에서만!)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 3. Spring Data JPA / JPA : Java Persistence API : 자바에서 DB와 연결되는 객체지향 API (인터페이스)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // 4. MySQL Driver
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // 5. Spring Security
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // 6. OAuth2 Client - 세팅안함.
+    // 직접 노가다로 카카오 로그인 구현하여 개념잡기
+    // 다음 인스타 프로젝트에서는 사용할 것임.
+    // JWT는 APP과 연동할 때 사용할 예정
+
+    // 7. 템플릿 엔진
+    // jasper 템플릿 엔진
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    // 8. Spring Web / Spring MVC를 사용한 RESTful서비스를 개발하는데 사용.
+    // WEB MVC를 사용하여 웹 애플리케이션을 만드는데 필요한 스프링부트의 기본적인 요소를 가짐.
+    // 내장형 컨테이너로 톰캣을 기본탑재하고 있다.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    /* TODO: 선생님이 말한거 외에 라이브러리라서 밑에 내용들 확인해보기*/
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    //test
+
+    /* TODO: 추가  라이브러리 시작 */
+    // 시큐리티 태그 라이브러리 (개발 중에만 필요)
+//    developmentOnly 'org.springframework.security:spring-security-taglibs'
+
+    // JSP 템플릿 엔진 : Java Server Pages의 약자로, Java 기반의 동적 웹 페이지를 생성하는 데 사용되는 기술
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    // JSTL
+    implementation 'javax.servlet:jstl'
+    /* TODO: 추가  라이브러리 끝 */
+
+//    // build.gradle : 라이브러리 추가
+//    //  todo: 보안 설정(스프링 시큐리티)
+//            implementation 'org.springframework.boot:spring-boot-starter-security'
+//    //  todo: jwt 토큰 설정 라이브러리
+//    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
