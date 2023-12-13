@@ -7,7 +7,7 @@ import lombok.*;
  * FileName : Member
  * Author : DH.Lee
  * Date : 2023-12-12
- * Note : http 요청 실습 모델 클래스
+ * Note : Springboot - 나만의 블로그 만들기 10강 ~ 11강 http 요청 실습 모델 클래스
  * 1) 필드 정의 : 클래스의 구성 요소
  * 2) 생성자 정의 : 객체의 필드 초기화
  * 3) getter, setter 메소드 정의 : 게터 메소드는 각 필드의 값을 반환하고, 세터 메소드는 각 필드에 새로운 값을 설정

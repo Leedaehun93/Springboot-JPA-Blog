@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
  * FileName : HttpControllerTest
  * Author : DH.Lee
  * Date : 2023-12-12
- * Note : http 요청 실습 컨트롤러
+ * Note : Springboot - 나만의 블로그 만들기 10강 ~ 11강 http 요청 실습 컨트롤러
  * 1) 웹 브라우저가 주로 GET 요청을 사용하여 서버에 데이터를 요청한다.
  * 웹 브라우저는 주로 GET 요청을 사용하여 서버에 데이터를 요청하며,
  * TODO: 이 때 쿼리 스트링을 사용하는 것이 가장 일반적인 방법이다.
@@ -48,6 +48,8 @@ public class HttpControllerTest {
     private static final String TAG = "HttpControllerTest : ";
 
     //  TODO: http://localhost:8080/http/lombok
+// TODO: application.yml 에서 서버 포트와 컨텍스트패스 변경함
+    //  TODO: http://localhost:8000/blog/http/lombok
     @GetMapping("/http/lombok")
     public String lombokTest() {
 //        Member m = new Member(1, "ssar", "1234", "email");
