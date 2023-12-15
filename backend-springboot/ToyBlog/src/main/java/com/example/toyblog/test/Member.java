@@ -23,9 +23,8 @@ import lombok.*;
 // 생략가능해짐 @Getter, @Setter
 // 생략가능해짐 @toString(), @equals(), @hashCode()
 @AllArgsConstructor // TODO: 클래스의 모든 필드를 매개변수로 갖는 전체 생성자(Full-Argument Constructor)를 자동으로 생성
-@Builder // TODO:
 @NoArgsConstructor  // TODO: 매개변수가 없는 기본 생성자(Default Constructor)를 자동으로 생성
-
+@Builder // TODO: 객체의 생성을 캡슐화하여, 필요한 속성만을 설정하여 객체를 생성할 수 있도록 도와주는 빌더 클래스를 자동으로 생성
 public class Member {
     // TODO: 1) 필드 정의
     private int id;

@@ -1,11 +1,14 @@
 package com.example.toyblog.model.entity;
 
+import com.example.toyblog.model.RoleType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -26,22 +29,22 @@ import java.sql.Timestamp;
  * ======================================
  */
 
-/**
- * User 클래스가 MySQL 에 테이블이 생성이 된다. = User 엔티티 클래스는 데이터베이스의 User 테이블과 매핑된다.
- *
- * @Entity 어노테이션을 통해 JPA가 User 클래스를 데이터베이스 테이블과 연결하고
- * 이 클래스는 사용자 데이터를 저장하며, 각 인스턴스는 테이블의 한 행(row)에 해당하게 된다.
- */
-
-@Builder // TODO: 빌더 패턴!!
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 /**
  * TODO: @Entity = ORM(Object-Relational Mapping) -> JAVA(다른 언어) Object(객체) -> 테이블로 매핑해주는 기술이다.
- *  이를 통해 객체의 속성은 테이블의 컬럼과 연결되며, 객체의 인스턴스(또는 객체)는 테이블의 행에 해당하게 한다.
+ *  User 클래스가 MySQL 에 테이블이 생성이 된다. = User 엔티티 클래스는 데이터베이스의 User 테이블과 매핑된다. 라고 표현 할 수 있다.
+ * @Entity 어노테이션을 통해 JPA가 User 클래스를 데이터베이스 테이블 컬럼과 연결하고,
+ * 이 클래스는 사용자 데이터를 저장하며, 객체의 인스턴스는 테이블의 한 행(row)에 해당하게 된다.
  */
 @Entity
+
+/**
+ * @DynamicInsert 사용을 하게 되면 insert 시에 null 인 필드를 제외 시켜준다.
+ */
+// @DynamicInsert
 public class User {
 
     /**
@@ -58,38 +61,45 @@ public class User {
     // GenerationType.IDENTITY: 데이터베이스가 id 값을 자동으로 관리한다.
     // Oracle에서는 시퀀스를, MySQL에서는 auto_increment를 사용한다.
     // id 필드 타입으로 int 대신 long을 사용하는 경우는, 회원 수가 매우 많은 경우에 적합하다.
-    private int id; // FK
+    private int id; // 이 필드는 엔티티의 PK(기본 키)로 사용된다.
 
-    //** 아이디 필드: null을 허용하지 않으며, 최대 길이는 30자 */
+    /**
+     * 아이디 필드: null 을 허용하지 않으며, 최대 길이는 30자
+     */
     @Column(nullable = false, length = 30)
     // TODO: 아이디
     private String username;
 
     /**
-     * 패스워드 필드 : null을 허용하지 않으며, 최대 길이는 100자
+     * 패스워드 필드 : null 을 허용하지 않으며, 최대 길이는 100자
      */
     // TODO: 12345 => (비밀번호는 해시 암호화를 고려하여 길이를 100으로 설정)
     @Column(nullable = false, length = 100)
     private String password;
 
     /**
-     * 이메일 필드 : null을 허용하지 않으며, 최대 길이는 50자
+     * 이메일 필드 : null 을 허용하지 않으며, 최대 길이는 50자
      */
     @Column(nullable = false, length = 50)
     private String email;
 
-    /** TODO: 권한 부여 필드 : 컬럼에 기본 값(사용자 역할(role).
-     *   기본값은 'user')을 지정해주고 문자열 값에는 반드시 홑 따옴표('') 사용하여 문자라고 알려줘야 한다. */
     /**
-     * TODO: 추후에는 private String(문자형) role;  => private Enum(열거형) role; 전략을 사용하는 게 좋다. 이유 :
-     *                                  role 필드에 허용된 값들을 제한하고(예 : admin, user, manger) 도메인(지정한 권한 범위)
-     *                                  안에 서만 설정할 수 있기 떄문에 코드의 안정성과 명확성을 높일 수 있다.
-     *                                  (오타나 잘못된 값 할당과 같은 프로그래밍 오류를 줄일 수 있음)
+     * TODO: 권한 부여 필드 : 컬럼에 기본 값(사용자 역할(role).
+     *   기본 값은 ('user')을 지정해주고 문자열 값에는 반드시 홑 따옴표('') 사용하여 문자라고 알려줘야 한다.
+    */
+    //    @ColumnDefault("'user'")
+    /**
+     * TODO: private RoleType role;  => enum 열거형을 생성하여 role 필드에 허용된 값들을 USER 와 ADMIN 으로 제한합니다.
+     *  private Enum(열거형) role; 전략을 사용하는 게 좋다. 이유 :
+     *  role 필드에 허용된 값들을 제한하고(예 : ADMIN, USER, MANGER) 도메인(지정한 권한 범위) 안에 서만
+     *  설정할 수 있기 떄문에 코드의 안정성과 명확성을 높일 수 있다.(오타나 잘못된 값 할당과 같은 프로그래밍 오류를 줄일 수 있음)
+     *
+     * TODO: @Enumerated(EnumType.STRING) : 데이터베이스에 enum 값을 저장할 때, 어노테이션을 사용하여 enum 값이 문자열로 저장되도록 지정한다.
      */
-    @ColumnDefault("'user'")
-    private String role;
+    @Enumerated(EnumType.STRING) // 데이터베이스에서는 RoleType 자체를 인식할 수 없기 때문에, enum 을 문자열 형태로 변환
+    private RoleType role; // enum 열거형을 생성하여 role 필드에 허용된 값들을 USER 와 ADMIN 으로 제한합니다.
 
-    /** TODO: @CreationTimestamp :
+    /** @CreationTimestamp :
      *   생성 시간 추적 :
      *    엔티티가 데이터베이스에 저장될 때 자동으로 타임스탬프를 설정하여 시간이 자동 입력됨,
      *    엔티티의 생성 시간을 추적하는데 유용함
