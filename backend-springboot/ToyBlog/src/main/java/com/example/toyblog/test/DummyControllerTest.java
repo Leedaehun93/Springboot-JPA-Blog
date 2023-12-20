@@ -6,11 +6,16 @@ import com.example.toyblog.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -161,5 +166,59 @@ public class DummyControllerTest {
 
     } // end of detail
 
+
+    /**
+     * ======================================
+     * FileName : DummyControllerTest
+     * Author : DH.Lee
+     * Date : 2023-12-21
+     * Note : 27강(블로그 프로젝트) - 전체 select 및 paging 테스트
+     * 1) 전체 조회(여러 건의 데이터)
+     * 2) paging 처리를 위한 2가지 방법 : List<User> 반환 타입과 Page<User> 반환 타입
+     * ======================================
+     */
+
+    /**
+     * 전체 조회
+     *
+     * @GetMapping 어노테이션을 통해 /dummy/users URL에 대한 HTTP GET 요청을 list() 메소드에 매핑하며,
+     * 이 메소드는 userRepository.findAll() 을 호출하여 모든 User 객체를 List 형태로 반환한다.
+     */
+    // http://localhost:8000/blog/dummy/users
+    @GetMapping("/dummy/users")
+    public List<User> list() {
+        return userRepository.findAll();
+    } // end of list
+
+    /**
+     * TODO: 1. paging 처리 List<User> 반환 타입 :
+     *  반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
+     *  이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
+     * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
+     *  이 메소드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
+     */
+    // http://localhost:8000/blog/dummy/user
+    // http://localhost:8000/blog/dummy/user?page=0
+    // http://localhost:8000/blog/dummy/user?page=1
+    @GetMapping("/dummy/user")
+    public List<User> PageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<User> pagingUser = userRepository.findAll(pageable);
+        return pagingUser.getContent();
+//    }
+
+        /**
+         * TODO: 2. paging 처리 Page<User> 반환 타입 :
+         *  반환된 페이지 정보에는 User 객체의 리스트뿐만 아니라 총 페이지 수, 현재 페이지 번호 등의 페이징 관련 정보도 포함된다.
+         * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
+         *  이 메소드는 userRepository.findAll(pageable)을 호출하여 User 객체의 페이지 정보를 반환한다.
+         */
+        // http://localhost:8000/blog/dummy/user
+        // http://localhost:8000/blog/dummy/user?page=0
+        // http://localhost:8000/blog/dummy/user?page=1
+//    @GetMapping("/dummy/user")
+//    public Page<User> PageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+//        return userRepository.findAll(pageable);
+
+    } // end of PageList
 
 } // end of class
