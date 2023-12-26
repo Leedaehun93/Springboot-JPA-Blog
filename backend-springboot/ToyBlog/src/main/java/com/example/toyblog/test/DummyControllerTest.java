@@ -10,10 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -194,8 +192,9 @@ public class DummyControllerTest {
      * TODO: 1. paging 처리 List<User> 반환 타입 :
      *  반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
      *  이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
+     *
      * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
-     *  이 메소드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
+     * 이 메소드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
      */
     // http://localhost:8000/blog/dummy/user
     // http://localhost:8000/blog/dummy/user?page=0
@@ -220,5 +219,57 @@ public class DummyControllerTest {
 //        return userRepository.findAll(pageable);
 
     } // end of PageList
+
+    /**
+     * ======================================
+     * FileName : User
+     * Author : DH.Lee
+     * Date : 2023-12-26
+     * Note : 28~29강(블로그 프로젝트) - update 테스트, 영속성 컨텍스트와 더티체킹
+     * update 사용 방법 1 : userRepository.save(user);
+     * update 사용 방법 2 : @Transactional 어노테이션과 Dirty Checking(더티 체킹)
+     * ======================================
+     */
+
+    /**
+     * @@PutMapping : HTTP PUT 요청을 처리 메소드를 정의하고 사용자의 정보를 업데이트할 때 사용한다.
+     * @RequestBody : 클라이언트로부터 받은 JSON 형식의 데이터를 Java 객체(User 클래스의 인스턴스)로 변환하여 사용할 수 있게 해준다.
+     * update 사용 방법 1 : userRepository.save(user);
+     * save 함수에 id 를 전달하지 않으면 insert 를 해주고
+     * save 함수에 id 를 전달하면 해당 id 에 대한 데이터가 있으면 update 를 해주고
+     * save 함수에 id 를 전달하면 해당 id 에 대한 데이터가 없으면 insert 를 한다.
+     * update 사용 방법 2 : @Transactional 어노테이션과 Dirty Checking(더티 체킹)
+     * 어떤 방식을 사용할지는 애플리케이션의 요구 사항, 개발자의 선호도,
+     * 그리고 특정 상황에 따라 달라질 수 있다.
+     * userRepository.save(user) 는 더 명시적이고 직관적인 방식을 제공하는 반면,
+     * TODO: @Transactional 과 더티 체킹은 성능상의 이점과 코드의 간결성을 제공한다.
+     * @Transactional : JPA 의 더티 체킹(dirty checking) 기능이 활성화되어, 엔티티의 변경 사항이 자동으로 감지하여 데이터베이스에 반영된다.
+     * 트랜잭션이 성공적으로 완료되면 데이터베이스 변경 사항이 커밋되고, 예외가 발생하면 롤백한다.
+     */
+
+    // http://localhost:8000/blog/dummy/user/1
+    @Transactional
+    @PutMapping("/dummy/user/{id}")
+    public User update(@PathVariable int id, @RequestBody User requestUser) {
+        System.out.println("id :" + id);
+        System.out.println("password :" + requestUser.getPassword());
+        System.out.println("email :" + requestUser.getEmail());
+
+        // 사용자 엔티티 조회: 사용자가 존재하지 않을 경우 IllegalArgumentException 을 발생시킨다.
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("수정이 실패하였습니다.");
+        });
+
+        // TODO: 더티 체킹을 이용한 엔티티 업데이트 : @Transactional 영속화 상태에서 엔티티 값을 변경하면,
+        //  트랜잭션이 종료될 때 자동으로 변경 사항이 데이터베이스에 커밋된다. 이를 더티 체킹이라고 한다.
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail());
+
+        // @Transactional을 사용하는 경우, 엔티티의 상태 변경이 자동으로 감지되므로 userRepository.save(user) 호출이 필요 없음
+//      userRepository.save(user);
+
+        return user; // 업데이트된 사용자 엔티티 반환
+
+    } // end of update
 
 } // end of class

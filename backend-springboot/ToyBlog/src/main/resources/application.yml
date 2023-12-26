@@ -32,13 +32,13 @@ spring:
       # TODO: ddl-auto 설정 전략 : 프로젝트 초기 단계에서는 create 옵션을 사용하여 테이블을 생성하고, 이후에는 update 옵션으로 전환하여 기존 데이터를 유지하면서 스키마 변경 사항만 반영
       # create - 서버 시작 시마다 DB 초기화 : 서버 시작 시마다 데이터베이스를 초기화합니다. 즉, 테이블을 새로 생성
       # update - 변경(수정) 사항만 DB에 반영
-      # none - DB에 아무런 반영을 하지 않음.
+      # none - DB 에 아무런 반영을 하지 않음.
       ddl-auto: update
 
       naming:
         # physical-strategy
         # TODO: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        # 엔티티를 만들 때 변수명 그대로 DB에 필드를 만들어 준다.
+        # 엔티티를 만들 때 변수명 그대로 DB 에 필드를 만들어 준다.
         # org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         # 엔티티를 만들 때 변수명에 언더스코어를 붙여준다. 예) createDate -> create_date
         # TODO: 엔티티(테이블)을 만들 떄 데이터 베이스 필드를 그대로 만들어 준다.
