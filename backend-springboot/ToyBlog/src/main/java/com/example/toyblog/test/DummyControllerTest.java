@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -271,5 +272,31 @@ public class DummyControllerTest {
         return user; // 업데이트된 사용자 엔티티 반환
 
     } // end of update
+
+    /**
+     * ======================================
+     * FileName : User
+     * Author : DH.Lee
+     * Date : 2023-12-26
+     * Note : 30강(블로그 프로젝트) - 삭제하기 테스트
+     * ======================================
+     */
+
+    /**
+     * @DeleteMapping 어노테이션을 이용하여 HTTP DELETE 요청으로
+     * 특정 사용자 ID 에 해당하는 데이터를 데이터베이스에서 삭제하기
+     */
+    // http://localhost:8000/blog/dummy/user/1
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable int id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제에 실패하였습니다. 해당 id 는 DB에 없습니다.";
+        }
+
+        return "삭제되었습니다. id : " + id;
+
+    } // end of delete
 
 } // end of class
