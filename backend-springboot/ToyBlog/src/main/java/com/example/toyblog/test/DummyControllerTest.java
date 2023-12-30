@@ -120,8 +120,8 @@ public class DummyControllerTest {
         /**
          * TODO: 1. 익명 클래스를 활용한 예외 처리
          *  - 전통적인 방식이며, 복잡한 로직이 필요한 경우 유용하다.
-         *  - userRepository.findById(id) : 데이터베이스에서 id에 해당하는 사용자 정보를 조회한다.
-         *  - 조회된 정보가 없으면 .orElseThrow로 예외를 발생시킨다.
+         *  - userRepository.findById(id) : 데이터베이스에서 id 에 해당하는 사용자 정보를 조회한다.
+         *  - 조회된 정보가 없으면 .orElseThrow 로 예외를 발생시킨다.
          *  - Supplier 인터페이스의 익명 구현체를 사용하여 IllegalArgumentException 예외를 생성하고 반환한다.
          */
         User user = userRepository.findById(id)
