@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
  * ======================================
  * FileName : GlobalEceptionHandler
  * Author : DH.Lee
- * Date : 12월 31일 0031
+ * Date : 2023-12-31
  * Note : 31강(블로그 프로젝트) - Exception처리하기
  * @ControllerAdvice 전역적인 예외 처리를 위한 페이지 만들기
+ *
+ * Note : 32강(블로그 프로젝트) - 스프링 기본파싱전략과 json통신
+ * 1) get 요청은 주소에 담아서 브라우저를 통해 보낼 수 있고, body 데이터 없음. form태그 형식으로 만든다.
+ * 2) post 요청도 form 태그로 가능하지만 put, delete 요청과 모두 통일을 위해 javascript로 ajax요청+데이터는 json형태로 통일(수업에서는 이 방식 사용)하거나 form:form 태그로 4가지 요청을 다 커버한다.
+ * 3) 스프링 컨트롤러는 key=value 형태의 데이터를 자동으로 파싱하여 변수에 담거나 object로 파싱해서 받아줄 수 있다.(해당 object의 setter 꼭 필요)
+ * 4) key=value 형태가 아닌 Json데이터나 일반 text 데이터는 @requestbody 어노테이션이 필요하다.
  * ======================================
  */
 
