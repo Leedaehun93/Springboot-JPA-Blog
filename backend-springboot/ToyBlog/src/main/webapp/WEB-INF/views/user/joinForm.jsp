@@ -12,25 +12,32 @@
 
 <%-- TODO: Bootstrap-4 Stacked Form Start --%>
 <div class="container">
-    <form action="/action_page.php">
+    <form>
         <%-- TODO: username Start --%>
-        <div class="form-group"><label for="username">Username:</label> <input type="text" class="form-control" placeholder="Enter username" id="username"></div>
+        <div class="form-group"><label for="username">Username:</label>
+            <input type="text" class="form-control" placeholder="Enter username" id="username">
+        </div>
         <%-- TODO: username End --%>
 
-        <%-- TODO: email Start --%>
-        <div class="form-group"><label for="email">Email:</label> <input type="email" class="form-control" placeholder="Enter email" id="email"></div>
-        <%-- TODO: email End --%>
-
         <%-- TODO: password Start --%>
-        <div class="form-group"><label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password"></div>
+        <div class="form-group"><label for="password">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" id="password">
+        </div>
         <%-- TODO: password End --%>
 
-        <%-- TODO: 회원가입완료 button Start --%>
-        <button type="submit" class="btn btn-primary">회원가입완료</button>
-        <%-- TODO: 회원가입완료 button End --%>
+        <%-- TODO: email Start --%>
+        <div class="form-group"><label for="email">Email:</label>
+            <input type="email" class="form-control" placeholder="Enter email" id="email">
+        </div>
+        <%-- TODO: email End --%>
     </form>
+
+    <%-- TODO: 회원가입완료 button Start --%>
+    <button id="btn-save"class="btn btn-primary">회원가입완료</button>
+    <%-- TODO: 회원가입완료 button End --%>
 </div>
 <%-- TODO: Bootstrap-4 Stacked Form End --%>
 
 <%-- TODO: footer include --%>
 <%@include file="../layout/footer.jsp" %>
+
