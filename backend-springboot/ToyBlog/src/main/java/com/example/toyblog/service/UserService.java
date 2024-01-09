@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  * Date : 2024-01-08
  * Note : 39강(블로그 프로젝트) - 회원가입 하기 두번째 완료
  * 1) 사용자 관련 비즈니스 로직을 처리하기 위해 UserService 클래스 구성
- *    회원가입 메서드 : 사용자를 받아서 회원가입 로직을 처리하고
- *    트랜잭션 관리를 통해 데이터베이스 작업을 관리한다.
+ * 회원가입 메서드 : 사용자를 받아서 회원가입 로직을 처리하고
+ * 트랜잭션 관리를 통해 데이터베이스 작업을 관리한다.
  * ======================================
  */
 
@@ -46,15 +46,8 @@ public class UserService {
      * @Transactional 어노테이션은 메서드 내의 모든 데이터베이스 작업을 하나의 트랜잭션으로 묶는다.
      */
     @Transactional
-    public int 회원가입(User user) {
-        try {
-            userRepository.save(user);
-            return 1; // 성공 시 1 반환
-        } catch (Exception e) {
-            e.printStackTrace(); // 예외 발생 시 스택 트레이스를 출력
-            System.out.println("UserService:회원가입() :" + e.getMessage());
-        }
-        return -1; // 실패 시 -1 반환
+    public void 회원가입(User user) {
+        userRepository.save(user);
     }
 
 } // end of class

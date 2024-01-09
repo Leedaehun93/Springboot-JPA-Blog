@@ -51,7 +51,7 @@ public class UserApiController {
         System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
         user.setRole(RoleType.USER);
-        int result = userService.회원가입(user);
+        userService.회원가입(user);
         return new ResponseDto<Integer>(HttpStatus.OK, 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
     }
 

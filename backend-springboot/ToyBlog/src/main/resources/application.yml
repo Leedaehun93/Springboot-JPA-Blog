@@ -40,7 +40,7 @@ spring:
         # TODO: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         # 엔티티를 만들 때 변수명 그대로 DB 에 필드를 만들어 준다.
         # org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        # 엔티티를 만들 때 변수명에 언더스코어를 붙여준다. 예) createDate -> create_date
+        # 엔티티를 만들 때 변수명에 언더스코어를 붙여준다. 언더스코어 예) createDate -> create_date
         # TODO: 엔티티(테이블)을 만들 떄 데이터 베이스 필드를 그대로 만들어 준다.
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 

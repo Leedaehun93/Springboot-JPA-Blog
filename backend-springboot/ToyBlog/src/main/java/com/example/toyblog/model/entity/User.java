@@ -66,7 +66,8 @@ public class User {
     /**
      * 아이디 필드: null 을 허용하지 않으며, 최대 길이는 30자
      */
-    @Column(nullable = false, length = 30)
+
+    @Column(unique = true, nullable = false, length = 30)
     // TODO: 아이디
     private String username;
 
@@ -97,7 +98,7 @@ public class User {
      * TODO: @Enumerated(EnumType.STRING) : 데이터베이스에 enum 값을 저장할 때, 어노테이션을 사용하여 enum 값이 문자열로 저장되도록 지정한다.
      */
     @Enumerated(EnumType.STRING) // 데이터베이스에서는 RoleType 자체를 인식할 수 없기 때문에, enum 을 문자열 형태로 변환
-    private RoleType role; // enum 열거형을 생성하여 role 필드에 허용된 값들을 USER 와 ADMIN 으로 제한합니다.
+    private RoleType role; // enum 열거형을 생성하여 role 필드에 허용된 값들을 USER 와 ADMIN 으로 제한한다.
 
     /** @CreationTimestamp :
      *   생성 시간 추적 :
