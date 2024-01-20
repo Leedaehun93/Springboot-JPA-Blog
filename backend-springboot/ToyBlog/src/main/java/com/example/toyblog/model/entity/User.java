@@ -65,6 +65,8 @@ public class User {
 
     /**
      * 아이디 필드: null 을 허용하지 않으며, 최대 길이는 30자
+     * 이 필드의 값은 데이터베이스 내에서 고유해야 한다.(unique = true)
+     *  즉, 동일한 username을 가진 두 개의 레코드를 테이블에 저장할 수 없다.
      */
 
     @Column(unique = true, nullable = false, length = 30)

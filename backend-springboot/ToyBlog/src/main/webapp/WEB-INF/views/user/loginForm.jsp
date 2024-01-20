@@ -12,7 +12,7 @@
 
 <%-- TODO: Bootstrap-4 Stacked Form Start --%>
 <div class="container">
-    <form action="/action_page.php">
+    <form>
         <%-- TODO: username Start --%>
         <div class="form-group"><label for="username">Username:</label> <input type="text" class="form-control" placeholder="Enter username" id="username"></div>
         <%-- TODO: username End --%>
@@ -24,13 +24,14 @@
         <%-- TODO: Remember me checkbox Start --%>
         <div class="form-group form-check"><label class="form-check-label"> <input class="form-check-input" type="checkbox"> Remember me </label></div>
         <%-- TODO: Remember me checkbox End --%>
-
-        <%-- TODO: 로그인 button Start --%>
-        <button type="submit" class="btn btn-primary">로그인</button>
-        <%-- TODO: 로그인 button End --%>
     </form>
+
+    <%-- TODO: 로그인 button Start --%>
+    <button id="btn-login" class="btn btn-primary">로그인</button>
+    <%-- TODO: 로그인 button End --%R>
+
 </div>
 <%-- TODO: Bootstrap-4 Stacked Form End --%>
 
-<%-- TODO: footer include --%>
-<%@include file="../layout/footer.jsp" %>
+    <%-- TODO: footer include --%>
+    <%@include file="../layout/footer.jsp" %>

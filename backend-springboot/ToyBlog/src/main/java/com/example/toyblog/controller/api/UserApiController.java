@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * ======================================
  * FileName : UserApiController
@@ -17,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
  * Date : 2024-01-08
  * Note : 38강(블로그 프로젝트) - 회원가입 하기 Ajax요청
  * 1) jQuery를 사용하여 웹 페이지에서 사용자 입력을 받아 AJAX를 통해 서버에 데이터를 전송하는 방법
- *     RESTful 웹 서비스의 컨트롤러로 클라이언트(예: 웹 페이지에서의 AJAX 요청)로부터 사용자 정보를 받아서 처리하고,
- *     요청의 성공 여부를 ResponseDto를 통해 클라이언트에게 알려주는 역할
- *     ResponseDto는 요청 처리 결과를 나타내는 'status' 필드와 결과 데이터를 담는 'data' 필드를 포함한다.
+ * RESTful 웹 서비스의 컨트롤러로 클라이언트(예: 웹 페이지에서의 AJAX 요청)로부터 사용자 정보를 받아서 처리하고,
+ * 요청의 성공 여부를 ResponseDto를 통해 클라이언트에게 알려주는 역할
+ * ResponseDto는 요청 처리 결과를 나타내는 'status' 필드와 결과 데이터를 담는 'data' 필드를 포함한다.
  * ======================================
  */
 
@@ -52,7 +54,17 @@ public class UserApiController {
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
         user.setRole(RoleType.USER);
         userService.회원가입(user);
-        return new ResponseDto<Integer>(HttpStatus.OK, 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
+    }
+
+    @PostMapping("/api/user/login")
+    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+        System.out.println("UserApiController : login호출됨");
+        User principal = userService.로그인(user); // principal(접근주체)
+        if (principal != null) {
+            session.setAttribute("principal", principal);
+        }
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
 } // end of class

@@ -39,15 +39,19 @@ public class UserService {
      *
      * @param user 회원가입할 사용자 정보
      * @return 성공 시 1, 실패 시 -1 반환. 예외 발생 시 스택 트레이스를 출력한다.
-     *
+     * <p>
      * userRepository.save(user)는 User 객체를 데이터베이스에 저장하는 JPA 리포지토리 메서드이다.
      * 이 메서드는 객체를 영구적으로 저장하거나 이미 존재하는 객체를 업데이트한다.
-     *
      * @Transactional 어노테이션은 메서드 내의 모든 데이터베이스 작업을 하나의 트랜잭션으로 묶는다.
      */
     @Transactional
     public void 회원가입(User user) {
         userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true) // Select 할 때 트랜잭션 시작 서비스 종료시에 트랜잭션 종료(정합성 유지가 됨)
+    public User 로그인(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 
 } // end of class

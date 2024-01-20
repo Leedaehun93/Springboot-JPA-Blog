@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
  * 1) 웹 브라우저가 주로 GET 요청을 사용하여 서버에 데이터를 요청한다.
  * 웹 브라우저는 주로 GET 요청을 사용하여 서버에 데이터를 요청하며,
  * TODO: 이 때 쿼리 스트링을 사용하는 것이 가장 일반적인 방법이다.
- * 그러나 폼을 사용한 GET 요청도 가능합니다.
+ * 그러나 폼을 사용한 GET 요청도 가능하다.
  * (1-1) get 요청 시 RequestParam 을 사용해서 Mapping 받기
  *      @GetMapping 메소드에서 @RequestParam을 사용하여 GET 요청의 파라미터를 매핑하는 방법
  * (1-2) get 요청 시 Member Objet 를 활용하여 Mapping 받기
  *      스프링 프레임워크가 객체를 통해 자동으로 요청 파라미터를 바인딩하여 쉽게 사용 할 수 있음
- * 2) post 요청 시 RequestBody 를 사용하여 파싱한다.
  *
+ * 2) post 요청 시 RequestBody 를 사용하여 파싱한다.
  * @RequestBody는 클라이언트로부터 받은 JSON이나 텍스트 데이터를 Java 객체로 변환하는 데 사용된다.
  * (2-1) post 요청 시 text/plain 으로 보내는 방법
  * @RequestBody 를 사용하여 text/plain 타입의 데이터를 String 형태로 받는 방법으로 문자열 형태의 데이터를 받아 그대로 반환한다.
@@ -48,7 +48,7 @@ public class HttpControllerTest {
     private static final String TAG = "HttpControllerTest : ";
 
     //  TODO: http://localhost:8080/http/lombok
-// TODO: application.yml 에서 서버 포트와 컨텍스트패스 변경함
+// TODO:  에서 서버 포트와 컨텍스트패스 변경함
     //  TODO: http://localhost:8000/blog/http/lombok
     @GetMapping("/http/lombok")
     public String lombokTest() {

@@ -33,7 +33,7 @@ public class DummyControllerTest {
 
     /**
      * @Autowired : 스프링 프레임워크의 의존성 주입(DI) 기능을 사용한다.
-     * 이 어노테이션은 스프링이 관리하는 빈(Bean) 중에서 해당 타입(UserRepository)의 빈을
+     * 이 어노테이션은 스프링이 관리하는 빈() 중에서 해당 타입(UserRepository)의 빈을
      * 자동으로 찾아 이 클래스의 필드에 주입한다.
      * 이를 통해 개발자는 UserRepository의 구체적인 생성 방법을 몰라도 되며,
      * 스프링 컨테이너가 빈의 생명주기를 관리하게 된다.

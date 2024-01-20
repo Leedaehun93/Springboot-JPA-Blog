@@ -19,7 +19,7 @@ public class UserController {
     /**
      * 회원가입 페이지
      */
-    @GetMapping("/user/joinForm")
+    @GetMapping("joinForm")
     public String joinForm(){
         return "user/joinForm";
     }
@@ -27,7 +27,7 @@ public class UserController {
     /**
      * 로그인 페이지
      */
-    @GetMapping("/user/loginForm")
+    @GetMapping("loginForm")
     public String loginForm(){
         return "user/loginForm";
     }

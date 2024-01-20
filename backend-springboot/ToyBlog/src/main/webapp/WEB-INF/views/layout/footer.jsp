@@ -26,7 +26,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- 사용자 정의 스크립트 -->
-<script src="/blog/js/user.js"></script>
+<script src="/js/user.js"></script>
 
 <!-- Bootstrap 및 기타 필요한 스크립트 포함 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

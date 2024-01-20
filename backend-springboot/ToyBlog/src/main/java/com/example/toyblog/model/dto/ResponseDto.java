@@ -33,7 +33,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Builder
 public class ResponseDto<T> {
-    HttpStatus status; // HTTP 응답 상태를 나타내는 필드(예 : 성공, 실패, 에러 등)
+    int status; // HTTP 응답 상태를 나타내는 필드(예 : 성공, 실패, 에러 등)
     T data; // 실제 응답 데이터를 포함하는 필드, 제네릭 타입으로 다양한 데이터 유형 처리
 
 } // end of class

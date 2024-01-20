@@ -45,9 +45,9 @@ public class GlobalExceptionHandler {
      * @ExceptionHandler(value = IllegalArgumentException.class)
      * IllegalArgumentException 타입의 예외만 처리된다.
      */
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseDto<String> handleArgumentException(IllegalArgumentException e) {
-        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    @ExceptionHandler(value = Exception.class)
+    public ResponseDto<String> handleArgumentException(Exception e) {
+        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
 } // end of class
