@@ -41,10 +41,10 @@ let index = {
             contentType: "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(MIME) 알려준다.
             dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 문자열로 들어오고 json 타입이라면 => javascript 오브젝트로 들어온다. dataType을 생략 했을 경우 jquery가 MIME 타입을 확인하고 자동으로 결정한다.
         }).done(function (resp) {
-            // alert("회원가입이 완료되었습니다.");
+            alert("회원가입이 완료되었습니다.");
             // alert(resp);
-            console.log(resp);
-            // location.href = "/";
+            // console.log(resp);
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

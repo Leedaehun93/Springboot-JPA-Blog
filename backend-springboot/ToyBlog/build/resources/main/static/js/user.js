@@ -27,12 +27,12 @@ let index = {
             password: $("#password").val(),
             email: $("#email").val()
         }
-        // console 에 데이터가 들어오는지 테스트 완료
+        // console에 데이터가 들어오는지 테스트 완료
         // console.log(data);
 
         /**
          * ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-         * ajax 호출 시 dafault가 비동기 호출로 진행된다.
+         * ajax 호출 시 default가 비동기 호출로 진행된다.
          */
         $.ajax({
             type: "POST",
@@ -43,8 +43,8 @@ let index = {
         }).done(function (resp) {
             alert("회원가입이 완료되었습니다.");
             // alert(resp);
-            console.log(resp);
-            // location.href = "/";
+            // console.log(resp);
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -62,7 +62,7 @@ let index = {
 
         /**
          * ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-         * ajax 호출 시 dafault가 비동기 호출로 진행된다.
+         * ajax 호출 시 default가 비동기 호출로 진행된다.
          */
         $.ajax({
             type: "POST", // type: GET type는 계정 정보가 남기 때문에 POST 방식을 선택한다.
@@ -73,7 +73,7 @@ let index = {
         }).done(function (resp) {
             alert("로그인이 완료되었습니다.");
             // alert(resp);
-            // console.log(resp);
+            console.log(resp);
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));

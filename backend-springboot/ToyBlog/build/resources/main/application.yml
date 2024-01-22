@@ -1,6 +1,6 @@
 # Note : Springboot - 나만의 블로그 만들기 17강 - yml설정하기
 
-# TODO: 서버 URL 설정
+# 서버 URL 설정
 server:
   port: 8000
   servlet:
@@ -10,41 +10,41 @@ server:
       enabled: true
       force: true
 
-# TODO: MVC 설정
+# MVC 설정
 spring:
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
-  # TODO: 데이터 소스 설정
+  # 데이터 소스 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
 
-  # TODO: JPA 설정
+  # JPA 설정
   jpa:
     open-in-view: true
     hibernate:
-      # TODO: ddl-auto
-      # TODO: ddl-auto 설정 전략 : 프로젝트 초기 단계에서는 create 옵션을 사용하여 테이블을 생성하고, 이후에는 update 옵션으로 전환하여 기존 데이터를 유지하면서 스키마 변경 사항만 반영
-      # create - 서버 시작 시마다 DB 초기화 : 서버 시작 시마다 데이터베이스를 초기화합니다. 즉, 테이블을 새로 생성
-      # update - 변경(수정) 사항만 DB에 반영
-      # none - DB 에 아무런 반영을 하지 않음.
+      # ddl-auto
+      # ddl-auto 설정 전략 : 프로젝트 초기 단계에서는 create 옵션을 사용하여 테이블을 생성하고, 이후에는 update 옵션으로 전환하여 기존 데이터를 유지하면서 스키마 변경 사항만 반영
+      #  create - 서버 시작 시마다 DB 초기화 : 서버 시작 시마다 데이터베이스를 초기화합니다. 즉, 테이블을 새로 생성.
+      #  update - 변경(수정) 사항만 DB에 반영.
+      #  none - DB 에 아무런 반영을 하지 않음.
       ddl-auto: create
 
       naming:
         # physical-strategy
-        # TODO: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        # 엔티티를 만들 때 변수명 그대로 DB 에 필드를 만들어 준다.
+        #  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        # 엔티티를 만들 때 변수명 그대로 DB에 필드를 만들어 준다.
         # org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         # 엔티티를 만들 때 변수명에 언더스코어를 붙여준다. 언더스코어 예) createDate -> create_date
-        # TODO: 엔티티(테이블)을 만들 떄 데이터 베이스 필드를 그대로 만들어 준다.
+        # 엔티티(테이블)을 만들 떄 데이터 베이스 필드를 그대로 만들어 준다.
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-      # use-new-id-generator-mappings: false : JPA 의 기본 전략을 따라 가지 않는다.
+      # use-new-id-generator-mappings: false : JPA의 기본 전략을 따라 가지 않는다.
       use-new-id-generator-mappings: false
     # show-sql : true : 콘솔 창에 화면을 띄워 준다.
     show-sql: true
@@ -52,7 +52,22 @@ spring:
     properties:
       hibernate.format_sql: true
 
-  # TODO: Jackson 설정
+  # Jackson 설정
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+#
+# 오류 TODO: 48강(블로그 프로젝트) - 스프링 시큐리티 체험해보기 : Spring Security default password is not printing on console(Using generated security password)
+#  -> 기본적으로 Spring Security 스타터는 사용자 비밀번호를 노출하지 않기 때문에 또는 로깅 속성을 조정해서 해결해야 함
+#     로깅 레벨 : 패키지의 로깅 레벨을 INFO로 설정하여 Using generated security password 콘솔 출력
+#     로깅 레벨 종류 : TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+#     개발 단계에서는 보통 DEBUG 또는 TRACE 레벨을 사용하여 가능한 많은 정보를 얻지만,
+#     운영 환경에서는 INFO 또는 그 이상의 레벨을 사용하여 로그 파일의 크기를 관리하고 필요한 정보만을 기록
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure:
+            security: INFO
