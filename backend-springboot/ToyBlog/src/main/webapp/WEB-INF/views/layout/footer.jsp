@@ -25,8 +25,9 @@
 <!-- 전체 jQuery 버전 포함  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<%-- TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존 --%>
 <!-- 사용자 정의 스크립트 -->
-<script src="/js/user.js"></script>
+<%--<script src="/js/user.js"></script>--%>
 
 <!-- Bootstrap 및 기타 필요한 스크립트 포함 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

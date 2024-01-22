@@ -42,7 +42,7 @@ public class UserApiController {
     @Autowired
     private UserService userService; // DI
 
-//    TODO: 회원가입시 throws Exception 테스트 해 보기
+//    회원가입시 throws Exception 테스트 해 보기
 //    @PostMapping("/api/user")
 //    public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
 //        System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
@@ -59,7 +59,7 @@ public class UserApiController {
 //        }
 //    }
 
-    @PostMapping("/api/user")
+    @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
         System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
@@ -68,7 +68,8 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
     }
 
-    // TODO: Spring Security 사용으로 주석 처리
+// TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+// Spring Security 사용으로 전통적인 로그인 방식은 주석 처리
 //    @PostMapping("/api/user/login")
 //    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
 //        System.out.println("UserApiController : login호출됨");

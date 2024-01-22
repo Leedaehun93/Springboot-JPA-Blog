@@ -49,9 +49,10 @@ public class UserService {
         userRepository.save(user);
     }
 
-    @Transactional(readOnly = true) // Select 할 때 트랜잭션 시작 서비스 종료시에 트랜잭션 종료(정합성 유지가 됨)
-    public User 로그인(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-    }
+// TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+//    @Transactional(readOnly = true) // Select 할 때 트랜잭션 시작 서비스 종료시에 트랜잭션 종료(정합성 유지가 됨)
+//    public User 로그인(User user) {
+//        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//    }
 
 } // end of class

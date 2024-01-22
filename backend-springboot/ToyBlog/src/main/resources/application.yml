@@ -33,7 +33,7 @@ spring:
       #  create - 서버 시작 시마다 DB 초기화 : 서버 시작 시마다 데이터베이스를 초기화합니다. 즉, 테이블을 새로 생성.
       #  update - 변경(수정) 사항만 DB에 반영.
       #  none - DB 에 아무런 반영을 하지 않음.
-      ddl-auto: create
+      ddl-auto: update
 
       naming:
         # physical-strategy
