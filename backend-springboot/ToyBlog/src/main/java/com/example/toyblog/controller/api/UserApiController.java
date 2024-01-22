@@ -4,12 +4,14 @@ import com.example.toyblog.model.RoleType;
 import com.example.toyblog.model.dto.ResponseDto;
 import com.example.toyblog.model.entity.User;
 import com.example.toyblog.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO: Spring Security 사용으로 주석 처리
 import javax.servlet.http.HttpSession;
 
 /**
@@ -40,16 +42,25 @@ public class UserApiController {
     @Autowired
     private UserService userService; // DI
 
-    /**
-     * 회원가입을 위한 API 엔드포인트
-     *
-     * @param user 사용자로부터 받은 데이터가 담긴 User 객체
-     * @return ResponseDto<Integer> 처리 결과를 포함하는 ResponseDto 객체
-     * @PostMapping 어노테이션을 사용하여 '/api/user' 경로로 들어오는 POST 요청을 처리한다.
-     * @RequestBody 어노테이션을 사용하여 요청 본문에 있는 User 객체의 데이터를 받는다.
-     */
+//    TODO: 회원가입시 throws Exception 테스트 해 보기
+//    @PostMapping("/api/user")
+//    public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
+//        System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
+//        // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
+//        user.setRole(RoleType.USER);
+//        userService.회원가입(user);
+//        try{
+//            ObjectMapper om = new ObjectMapper();
+//            System.out.println(om.writeValueAsString(user));
+//            throw new Exception("forced");
+//        }catch (Exception e){
+//            System.out.println(e);
+//            throw e;
+//        }
+//    }
+
     @PostMapping("/api/user")
-    public ResponseDto<Integer> save(@RequestBody User user) {
+    public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
         System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
         user.setRole(RoleType.USER);
@@ -57,14 +68,15 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
     }
 
-    @PostMapping("/api/user/login")
-    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
-        System.out.println("UserApiController : login호출됨");
-        User principal = userService.로그인(user); // principal(접근주체)
-        if (principal != null) {
-            session.setAttribute("principal", principal);
-        }
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-    }
+    // TODO: Spring Security 사용으로 주석 처리
+//    @PostMapping("/api/user/login")
+//    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+//        System.out.println("UserApiController : login호출됨");
+//        User principal = userService.로그인(user); // principal(접근주체)
+//        if (principal != null) {
+//            session.setAttribute("principal", principal);
+//        }
+//        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//    }
 
 } // end of class

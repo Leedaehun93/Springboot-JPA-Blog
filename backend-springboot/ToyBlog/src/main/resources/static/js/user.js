@@ -27,12 +27,12 @@ let index = {
             password: $("#password").val(),
             email: $("#email").val()
         }
-        // console 에 데이터가 들어오는지 테스트 완료
+        // console에 데이터가 들어오는지 테스트 완료
         // console.log(data);
 
         /**
          * ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-         * ajax 호출 시 dafault가 비동기 호출로 진행된다.
+         * ajax 호출 시 default가 비동기 호출로 진행된다.
          */
         $.ajax({
             type: "POST",
@@ -41,7 +41,7 @@ let index = {
             contentType: "application/json; charset=utf-8", // body 데이터가 어떤 타입인지(MIME) 알려준다.
             dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 문자열로 들어오고 json 타입이라면 => javascript 오브젝트로 들어온다. dataType을 생략 했을 경우 jquery가 MIME 타입을 확인하고 자동으로 결정한다.
         }).done(function (resp) {
-            alert("회원가입이 완료되었습니다.");
+            // alert("회원가입이 완료되었습니다.");
             // alert(resp);
             console.log(resp);
             // location.href = "/";
@@ -62,7 +62,7 @@ let index = {
 
         /**
          * ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-         * ajax 호출 시 dafault가 비동기 호출로 진행된다.
+         * ajax 호출 시 default가 비동기 호출로 진행된다.
          */
         $.ajax({
             type: "POST", // type: GET type는 계정 정보가 남기 때문에 POST 방식을 선택한다.
@@ -73,7 +73,7 @@ let index = {
         }).done(function (resp) {
             alert("로그인이 완료되었습니다.");
             // alert(resp);
-            // console.log(resp);
+            console.log(resp);
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
