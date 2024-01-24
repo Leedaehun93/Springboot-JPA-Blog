@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-// TODO: Spring Security 사용으로 주석 처리
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession; //Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
 
 /**
  * ======================================
@@ -42,7 +40,9 @@ public class UserApiController {
     @Autowired
     private UserService userService; // DI
 
-//    회원가입시 throws Exception 테스트 해 보기
+    /**
+     * TODO: 회원가입시 throws Exception(try, catch) 테스트 해 보기
+     */
 //    @PostMapping("/api/user")
 //    public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
 //        System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
@@ -60,15 +60,16 @@ public class UserApiController {
 //    }
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
+    public ResponseDto<Integer> save(@RequestBody User user) throws Exception { // username, password, email
         System.out.println("UserApiController : save 호출됨"); // 서버 콘솔에 로그 출력 // 테스트 완료
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
-        user.setRole(RoleType.USER);
         userService.회원가입(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환
     }
 
-// TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+    /**
+     * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+     */
 // Spring Security 사용으로 전통적인 로그인 방식은 주석 처리
 //    @PostMapping("/api/user/login")
 //    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {

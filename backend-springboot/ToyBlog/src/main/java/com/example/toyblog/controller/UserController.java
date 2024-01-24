@@ -33,16 +33,10 @@ public class UserController {
 //    }
 
     /**
-     * ======================================
-     * FileName : UserApiController
-     * Author : DH.Lee
-     * Date : 2024-01-22
      * Note : 49강(블로그 프로젝트) - 스프링 시큐리티 로그인 페이지 커스터마이징
      * 스프링 시큐리티의 폼 로그인(form login) 기능을 사용자 정의 로그인 페이지로 변경
      * 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
-     * ======================================
      */
-
     // 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/** 허용
     // 그냥 주소가 / 이면 index.jsp 허용
     // static 이하에 있는 /js/**, /css/**, /image/**
@@ -61,6 +55,5 @@ public class UserController {
     public String loginForm(){
         return "user/loginForm";
     }
-
 
 } // end of class

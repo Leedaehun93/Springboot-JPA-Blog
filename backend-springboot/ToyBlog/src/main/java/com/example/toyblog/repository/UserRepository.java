@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 
 /**
- * TODO: @Repository 어노테이션 생략 가능하다.
+ * @Repository 어노테이션 생략 가능하다.
  *   1) UserRepository는 Spring Data JPA의 JpaRepository를 확장한 인터페이스이다.
  *       이를 통해 User 엔티티에 대한 기본적인 CRUD 작업과 조회 기능을 제공한다.
  *   2) JpaRepository에는 다양한 표준 CRUD 메소드가 포함되어 있으며,
@@ -30,13 +30,14 @@ import org.springframework.data.jpa.repository.Query;
  *      JpaRepository<User, Integer> 의 두 번째 매개변수는 기본 키의 타입을 나타낸다.
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
-// TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
-    // TODO: 1. Spring Data JPA Naming 전략: 메소드 이름을 통해 단순한 조회 조건에 적합한 쿼리 자동 생성
-//    User findByUsernameAndPassword(String username, String password); // 조회조건: findByUsernameAndPassword
 
-    // TODO: 2. Spring Data JPA 네이티브 쿼리 전략: @Query 어노테이션을 사용하여 복잡한 쿼리를 직접 작성
+    /**
+     * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+     */
+//     1. Spring Data JPA Naming 전략: 메소드 이름을 통해 단순한 조회 조건에 적합한 쿼리 자동 생성
+//    User findByUsernameAndPassword(String username, String password); // 조회조건: findByUsernameAndPassword
+//     2. Spring Data JPA 네이티브 쿼리 전략: @Query 어노테이션을 사용하여 복잡한 쿼리를 직접 작성
 //    @Query(value="SELECT * FROM user WHERE username = ?1 AND Password = ?2", nativeQuery = true) // nativeQuery = true는 쿼리가 순수 SQL임을 나타냄
 //    User login(String username, String password);
-
 
 } // end of interface

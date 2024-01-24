@@ -18,7 +18,7 @@ import java.util.List;
  * Author : DH.Lee
  * Date : 2023-12-14
  * Note : 20강(블로그 프로젝트) - Board테이블 생성
- * TODO: User 모델 클래스와 동일한 부분은 주석 설명 생략
+ * User 모델 클래스와 동일한 부분은 주석 설명 생략
  * ======================================
  */
 @Builder
@@ -69,7 +69,7 @@ public class Board {
     private User user;
 
     /**
-     * TODO: @OneToMany(mappedBy="board", fetch = FetchType.EAGER) :
+     * @OneToMany(mappedBy="board", fetch = FetchType.EAGER) :
      *  Board 엔티티 와 Reply 엔티티 사이의 일대다 관계를 정의한다.
      *  'mappedBy' 속성은 이 필드(Board)가 연관관계의 주인이 아니며, 실제 외래 키 관리는
      *  Reply 엔티티의 'board' 필드에 의해 이루어진다는 것을 나타낸다.

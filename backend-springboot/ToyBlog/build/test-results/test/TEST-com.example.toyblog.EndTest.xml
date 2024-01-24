@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.toyblog.EndTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-01-22T16:26:46" hostname="LAPTOP-GNG1OPQ0" time="0.33">
+  <properties/>
+  <testcase name="해쉬_암호화()" classname="com.example.toyblog.EndTest" time="0.33"/>
+  <system-out><![CDATA[1234해쉬:$2a$10$2p7Ca6oGJFpWWTMPjT4SbelsNACZYeFA7tItz/E9gwlDsAQxnDdqy
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

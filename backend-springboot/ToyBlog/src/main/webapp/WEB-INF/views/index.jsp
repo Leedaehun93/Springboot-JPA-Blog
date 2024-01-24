@@ -7,10 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- TODO: header include --%>
+<%-- header include --%>
 <%@include file="layout/header.jsp" %>
 
-<%-- TODO: Card-1 Start --%>
+<%-- Card-1 Start --%>
 <div class="container">
     <div class="card m-2">
         <div class="card-body">
@@ -19,9 +19,9 @@
         </div>
     </div>
 </div>
-<%-- TODO: Card-1 End --%>
+<%-- Card-1 End --%>
 
-<%-- TODO: Card-2 Start --%>
+<%-- Card-2 Start --%>
 <div class="container">
     <div class="card m-2">
         <div class="card-body">
@@ -30,9 +30,9 @@
         </div>
     </div>
 </div>
-<%-- TODO: Card-2 End --%>
+<%-- Card-2 End --%>
 
-<%-- TODO: Card-3 Start --%>
+<%-- Card-3 Start --%>
 <div class="container">
     <div class="card m-2">
         <div class="card-body">
@@ -41,7 +41,7 @@
         </div>
     </div>
 </div>
-<%-- TODO: Card-3 End --%>
+<%-- Card-3 End --%>
 
-<%-- TODO: footer include --%>
+<%-- footer include --%>
 <%@include file="layout/footer.jsp" %>

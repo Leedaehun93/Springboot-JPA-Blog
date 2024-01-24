@@ -118,7 +118,7 @@ public class DummyControllerTest {
 
         // 익명 클래스를 사용한 예외 처리 방법
         /**
-         * TODO: 1. 익명 클래스를 활용한 예외 처리
+         * 1. 익명 클래스를 활용한 예외 처리
          *  - 전통적인 방식이며, 복잡한 로직이 필요한 경우 유용하다.
          *  - userRepository.findById(id) : 데이터베이스에서 id 에 해당하는 사용자 정보를 조회한다.
          *  - 조회된 정보가 없으면 .orElseThrow 로 예외를 발생시킨다.
@@ -144,7 +144,7 @@ public class DummyControllerTest {
 
         // 람다 표현식을 사용한 예외 처리 방법
         /**
-         * TODO: 2. 람다 표현식을 활용한 예외 처리
+         * 2. 람다 표현식을 활용한 예외 처리
          *  - Java 8 이후 도입된 간단한 로직에 적합한 표현식이다.
          *  - 코드를 익명 클래스보다 더 간결하게 만들 수 있으며, 선언적으로 작성할 수 있다.
          *  - userRepository.findById(id) : 데이터베이스에서 id에 해당하는 사용자 정보를 조회한다.
@@ -154,7 +154,7 @@ public class DummyControllerTest {
 //                .orElseThrow(() ->
 //                        new IllegalArgumentException("해당 정보는 잘못된 사용자 정보입니다. 사용자 ID : " + id));
 //
-//        // TODO : 아래 부분은 스프링 부트의 MessageConverter 에 대한 설명
+//        // 아래 부분은 스프링 부트의 MessageConverter 에 대한 설명
 //        // 요청: 웹브라우저로부터의 HTTP 요청
 //        // user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
 //        // 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
@@ -190,7 +190,7 @@ public class DummyControllerTest {
     } // end of list
 
     /**
-     * TODO: 1. paging 처리 List<User> 반환 타입 :
+     * 1. paging 처리 List<User> 반환 타입 :
      *  반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
      *  이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
      *
@@ -207,7 +207,7 @@ public class DummyControllerTest {
 //    }
 
         /**
-         * TODO: 2. paging 처리 Page<User> 반환 타입 :
+         * 2. paging 처리 Page<User> 반환 타입 :
          *  반환된 페이지 정보에는 User 객체의 리스트뿐만 아니라 총 페이지 수, 현재 페이지 번호 등의 페이징 관련 정보도 포함된다.
          * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
          *  이 메소드는 userRepository.findAll(pageable)을 호출하여 User 객체의 페이지 정보를 반환한다.
@@ -243,7 +243,7 @@ public class DummyControllerTest {
      * 어떤 방식을 사용할지는 애플리케이션의 요구 사항, 개발자의 선호도,
      * 그리고 특정 상황에 따라 달라질 수 있다.
      * userRepository.save(user) 는 더 명시적이고 직관적인 방식을 제공하는 반면,
-     * TODO: @Transactional 과 더티 체킹은 성능상의 이점과 코드의 간결성을 제공한다.
+     * @Transactional 과 더티 체킹은 성능상의 이점과 코드의 간결성을 제공한다.
      * @Transactional : JPA 의 더티 체킹(dirty checking) 기능이 활성화되어, 엔티티의 변경 사항이 자동으로 감지하여 데이터베이스에 반영된다.
      * 트랜잭션이 성공적으로 완료되면 데이터베이스 변경 사항이 커밋되고, 예외가 발생하면 롤백한다.
      */
@@ -261,7 +261,7 @@ public class DummyControllerTest {
             return new IllegalArgumentException("수정이 실패하였습니다.");
         });
 
-        // TODO: 더티 체킹을 이용한 엔티티 업데이트 : @Transactional 영속화 상태에서 엔티티 값을 변경하면,
+        // 더티 체킹을 이용한 엔티티 업데이트 : @Transactional 영속화 상태에서 엔티티 값을 변경하면,
         //  트랜잭션이 종료될 때 자동으로 변경 사항이 데이터베이스에 커밋된다. 이를 더티 체킹이라고 한다.
         user.setPassword(requestUser.getPassword());
         user.setEmail(requestUser.getEmail());

@@ -7,37 +7,38 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- TODO: header include --%>
+<%-- header include --%>
 <%@include file="../layout/header.jsp" %>
 
-<%-- TODO: Bootstrap-4 Stacked Form Start --%>
+<%-- Bootstrap-4 ed Form Start --%>
 <div class="container">
-    <form>
-        <%-- TODO: username Start --%>
+    <%-- <form action="#">는 폼이 제출될 때 서버로 데이터를 전송하는 경로를 지정한다. 현재 #으로 설정되어 있어, 실제 서버 경로로의 데이터 전송은 이루어지지 않는다. --%>
+    <form action="#">
+        <%-- username Start --%>
         <div class="form-group"><label for="username">Username:</label>
             <input type="text" class="form-control" placeholder="Enter username" id="username">
         </div>
-        <%-- TODO: username End --%>
+        <%-- username End --%>
 
-        <%-- TODO: password Start --%>
+        <%-- password Start --%>
         <div class="form-group"><label for="password">Password:</label>
             <input type="password" class="form-control" placeholder="Enter password" id="password">
         </div>
-        <%-- TODO: password End --%>
+        <%-- password End --%>
 
-        <%-- TODO: email Start --%>
+        <%-- email Start --%>
         <div class="form-group"><label for="email">Email:</label>
             <input type="email" class="form-control" placeholder="Enter email" id="email">
         </div>
-        <%-- TODO: email End --%>
+        <%-- email End --%>
+
+        <%-- 회원가입완료 button Start --%>
+        <button id="btn-save" class="btn btn-primary">회원가입완료</button>
+        <%-- 회원가입완료 button End --%>
     </form>
 
-    <%-- TODO: 회원가입완료 button Start --%>
-    <button id="btn-save"class="btn btn-primary">회원가입완료</button>
-    <%-- TODO: 회원가입완료 button End --%>
 </div>
-<%-- TODO: Bootstrap-4 Stacked Form End --%>
+<%-- Bootstrap-4 ed Form End --%>
 
-<%-- TODO: footer include --%>
+<%-- footer include --%>
 <%@include file="../layout/footer.jsp" %>
-

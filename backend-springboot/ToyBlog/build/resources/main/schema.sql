@@ -583,7 +583,7 @@
 --     DELETE_TIME       VARCHAR2(255)
 -- );
 --
--- -- TODO: 인증관련 테이블 정의
+-- -- 인증관련 테이블 정의
 -- -- 유저 테이블
 -- -- login table ddl
 -- DROP TABLE TB_USER CASCADE CONSTRAINTS;

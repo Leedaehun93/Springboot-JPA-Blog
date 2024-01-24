@@ -11,7 +11,7 @@
 <%-- Declaring the Taglibs --%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%-- TODO: Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존 --%>
+<%-- Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존 --%>
 <%-- Spring Security의 태그를 사용하여 사용자 인증(로그인) 상태를 체크한다. 조건에 해당하지 않는 즉, 사용자가 익명이 아닌(로그인이 된 상태) 경우 메시지를 표시해 반환한다. --%>
 <%--<sec:authorize access="isAuthenticated()">--%>
 <%--    <script>--%>
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-<%-- TODO: Navbar Start --%>
+<%-- Navbar Start --%>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a class="navbar-brand" href="/">Ivan</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -58,5 +58,5 @@
         </c:choose>
     </div>
 </nav>
-<%-- TODO: Navbar End --%>
+<%-- Navbar End --%>
 <br/>

@@ -15,7 +15,7 @@ import java.sql.Timestamp;
  * Author : DH.Lee
  * Date : 2023-12-14
  * Note : 21강(블로그 프로젝트) - Reply 테이블 생성
- * TODO: User, Board 모델 클래스와 동일한 부분은 주석 설명 생략
+ * User, Board 모델 클래스와 동일한 부분은 주석 설명 생략
  * ======================================
  */
 @Builder
