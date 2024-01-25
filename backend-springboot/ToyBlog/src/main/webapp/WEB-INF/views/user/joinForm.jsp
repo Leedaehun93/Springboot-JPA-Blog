@@ -12,33 +12,45 @@
 
 <%-- Bootstrap-4 ed Form Start --%>
 <div class="container">
-    <%-- <form action="#">는 폼이 제출될 때 서버로 데이터를 전송하는 경로를 지정한다. 현재 #으로 설정되어 있어, 실제 서버 경로로의 데이터 전송은 이루어지지 않는다. --%>
-    <form action="#">
+    <form>
         <%-- username Start --%>
-        <div class="form-group"><label for="username">Username:</label>
+        <div class="form-group">
+            <label for="username">Username</label>
             <input type="text" class="form-control" placeholder="Enter username" id="username">
         </div>
         <%-- username End --%>
 
         <%-- password Start --%>
-        <div class="form-group"><label for="password">Password:</label>
+        <div class="form-group">
+            <label for="password">Password</label>
             <input type="password" class="form-control" placeholder="Enter password" id="password">
         </div>
         <%-- password End --%>
 
         <%-- email Start --%>
-        <div class="form-group"><label for="email">Email:</label>
+        <div class="form-group">
+            <label for="email">Email</label>
             <input type="email" class="form-control" placeholder="Enter email" id="email">
         </div>
         <%-- email End --%>
-
-        <%-- 회원가입완료 button Start --%>
-        <button id="btn-save" class="btn btn-primary">회원가입완료</button>
-        <%-- 회원가입완료 button End --%>
     </form>
+    <%-- 회원가입완료 button Start --%>
+    <button id="btn-save" class="btn btn-primary">회원가입완료</button>
+    <%-- 회원가입완료 button End --%>
 
 </div>
 <%-- Bootstrap-4 ed Form End --%>
+
+<%-- script Start --%>
+<%-- TODO: [오류 해결] 문제 : "회원가입버튼" 클릭 후 동작하지 않음(Include omitted for the script reference)
+        참고 : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
+        원인 : user.js 스크립트 로드 문제 발생.
+        해결 : 버튼 클릭 이벤트를 처리하는 로직을 포함하고 있으나 비활성화 상태(주석 처리) 로 인한 이슈 발생으로 주석 해제, 충동로 인해 사용자 정의 스크립트 위치를 footer.jsp -> joinForm.jsp 위치로 변경함
+              나머지 스크립트는 header.jsp <head> 태스 하단에 위치(스크립트 로딩 순서 중요)
+--%>
+<!-- 사용자 정의 스크립트 -->
+<script src="/js/user.js"></script>
+<%-- script End --%>
 
 <%-- footer include --%>
 <%@include file="../layout/footer.jsp" %>

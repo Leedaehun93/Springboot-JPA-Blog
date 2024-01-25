@@ -1,4 +1,4 @@
-package com.example.toyblog.model.dto;
+package com.example.toyblog.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ import org.springframework.http.HttpStatus;
  */
 
 /**
- * Lombok 라이브러리의 어노테이션을 사용하여 표준적인 메소드(getter, setter 등)를 자동으로 생성
+ * Lombok 라이브러리의 어노테이션을 사용하여 표준적인 메서드(getter, setter 등)를 자동으로 생성
  * @Data: 자동으로 getter, setter, equals, hashCode, toString 메서드 생성
  * @NoArgsConstructor: 매개변수 없는 기본 생성자 생성
  * @AllArgsConstructor: 모든 필드를 매개변수로 받는 생성자 생성
@@ -33,6 +33,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Builder
 public class ResponseDto<T> {
+
     int status; // HTTP 응답 상태를 나타내는 필드(예 : 성공, 실패, 에러 등)
     T data; // 실제 응답 데이터를 포함하는 필드, 제네릭 타입으로 다양한 데이터 유형 처리
 

@@ -33,7 +33,7 @@ spring:
       #  create - 서버 시작 시마다 DB 초기화 : 서버 시작 시마다 데이터베이스를 초기화합니다. 즉, 테이블을 새로 생성.
       #  update - 변경(수정) 사항만 DB에 반영.
       #  none - DB에 아무런 반영을 하지 않음.
-      ddl-auto: create
+      ddl-auto: update
 
       naming:
         # physical-strategy
@@ -57,13 +57,13 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-#
-# 오류 TODO: 48강(블로그 프로젝트) - 스프링 시큐리티 체험해보기 : Spring Security default password is not printing on console(Using generated security password)
-#  -> 기본적으로 Spring Security 스타터는 사용자 비밀번호를 노출하지 않기 때문에 또는 로깅 속성을 조정해서 해결해야 함
-#     로깅 레벨 : 패키지의 로깅 레벨을 INFO로 설정하여 Using generated security password 콘솔 출력
-#     로깅 레벨 종류 : TRACE, DEBUG, INFO, WARN, ERROR, FATAL
-#     개발 단계에서는 보통 DEBUG 또는 TRACE 레벨을 사용하여 가능한 많은 정보를 얻지만,
-#     운영 환경에서는 INFO 또는 그 이상의 레벨을 사용하여 로그 파일의 크기를 관리하고 필요한 정보만을 기록
+# TODO: [오류 해결] 문제 : security 기본 제공하는 패스워드 정보가 콘솔에 찍히지 않음(Spring Security default password is not printing on console(Using generated security password))
+#  참고 : 48강(블로그 프로젝트) - 스프링 시큐리티 체험해보기
+#  원인 : 기본적으로 Spring Security 스타터는 사용자 비밀번호를 노출하지 않기 때문에 또는 로깅 속성을 조정해서 해결해야 함
+#  해결 : 로깅 레벨 : 패키지의 로깅 레벨을 INFO로 설정하여 Using generated security password 콘솔 출력
+#         로깅 레벨 종류 : TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+#         개발 단계에서는 보통 DEBUG 또는 TRACE 레벨을 사용하여 가능한 많은 정보를 얻지만,
+#         운영 환경에서는 INFO 또는 그 이상의 레벨을 사용하여 로그 파일의 크기를 관리하고 필요한 정보만을 기록
 logging:
   level:
     org:

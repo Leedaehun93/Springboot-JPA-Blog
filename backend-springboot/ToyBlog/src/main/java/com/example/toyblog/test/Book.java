@@ -44,7 +44,7 @@ public class Book { // Book 클래스
         this.price = price;
     }
 
-    // Getter와 Setter 메소드
+    // Getter와 Setter 메서드
     /**
      * 책의 제목을 반환한다.
      *

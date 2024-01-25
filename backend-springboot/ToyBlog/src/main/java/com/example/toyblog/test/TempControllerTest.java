@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 // @RestController RESTful 웹 서비스를 만들 때 사용되며, 주로 데이터(예: JSON) 를 반환한다.
 public class TempControllerTest {
 
-    // 정적인 HTML 파일을 반환하는 GetMapping 메소드
+    // 정적인 HTML 파일을 반환하는 GetMapping 메서드
     // 기본 경로 http://localhost:8000/blog/temp/home
     @GetMapping("/temp/home")
     public String tempHome() {
@@ -33,7 +33,7 @@ public class TempControllerTest {
     }
 
 
-    // 정적인 이미지 파일을 반환하는 GetMapping 메소드
+    // 정적인 이미지 파일을 반환하는 GetMapping 메서드
     @GetMapping("/temp/img")
     public String tempImg() {
         // 리턴 경로는 정적 파일 경로를 기반으로 함: src/main/resources/static/Ivan_R2.jpg
@@ -41,7 +41,7 @@ public class TempControllerTest {
     }
 
 
-    // 동적인 JSP 파일을 반환하는 GetMapping 메소드
+    // 동적인 JSP 파일을 반환하는 GetMapping 메서드
     @GetMapping("/temp/jsp")
     public String tempJsp() {
         // 스프링 MVC가 처리하는 뷰 이름을 리턴

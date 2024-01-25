@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * 이 때 쿼리 스트링을 사용하는 것이 가장 일반적인 방법이다. 그러나 폼을 사용한 GET 요청도 가능하다.
  *
  * (1-1) get 요청 시 RequestParam을 사용해서 Mapping 받기
- *      @GetMapping 메소드에서 @RequestParam을 사용하여 GET 요청의 파라미터를 매핑하는 방법
+ *      @GetMapping 메서드에서 @RequestParam을 사용하여 GET 요청의 파라미터를 매핑하는 방법
  * (1-2) get 요청 시 Member Objet 를 활용하여 Mapping 받기
  *      스프링 프레임워크가 객체를 통해 자동으로 요청 파라미터를 바인딩하여 쉽게 사용 할 수 있음
  *

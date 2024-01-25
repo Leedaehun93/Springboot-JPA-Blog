@@ -1,4 +1,4 @@
-package com.example.toyblog.model.entity;
+package com.example.toyblog.model;
 
 import lombok.Builder;
 import lombok.Data;
@@ -86,6 +86,6 @@ public class Board {
      * java.sql.Timestamp 타입은 SQL 타임스탬프 값을 표현하는 데 사용됩니다.
      */
     @CreationTimestamp
-    private Timestamp creteDate;
+    private Timestamp createDate;
 
 } // end of class

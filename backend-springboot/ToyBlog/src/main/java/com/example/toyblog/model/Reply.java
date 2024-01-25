@@ -1,4 +1,4 @@
-package com.example.toyblog.model.entity;
+package com.example.toyblog.model;
 
 import lombok.Builder;
 import lombok.Data;
@@ -59,9 +59,9 @@ public class Reply {
     /**
      * createDate 필드는 엔티티가 데이터베이스에 저장될 때의 현재 시간을 자동으로 기록한다.
      * @CreationTimestamp 어노테이션은 Hibernate가 이 필드에 생성 시점의 타임스탬프를 자동으로 할당하도록 한다.
-     * java.sql.Timestamp 타입은 SQL 타임스탬프 값을 표현하는 데 사용된다..
+     * java.sql.Timestamp 타입은 SQL 타임스탬프 값을 표현하는 데 사용된다.
      */
     @CreationTimestamp
-    private Timestamp creteDate;
+    private Timestamp createDate;
 
 } // end of class

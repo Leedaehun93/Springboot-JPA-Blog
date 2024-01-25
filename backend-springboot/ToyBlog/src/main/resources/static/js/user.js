@@ -19,7 +19,7 @@ let index = {
     },
     /**
      * save 함수 : 사용자가 입력한 데이터를 가져와서 JSON 객체로 변환한다. $.ajax를 사용하여 서버에 POST 요청을 보내고 JSON 형식으로 전송된다.
-     * 1) .done 성공 처리 로직 : 요청이 성공하면 사용자를 다른 페이지(/blog)로 리디렉션하고
+     * 1) .done 성공 처리 로직 : 요청이 성공하면 사용자를 다른 페이지(/)로 리디렉션하고
      * 2) .fail 오류 처리 로직 : 실패할 경우, 오류 메시지를 표시한다.
      */
     save: function () {
@@ -28,14 +28,13 @@ let index = {
          * http://localhost:8000/auth/joinForm 에서
          * "회원가입완료" 버튼 클릭시 화면 출력
          */
-        // alert("save 함수 호출"); // 화면 테스트 완료
+            // alert("save 함수 호출"); // 화면 테스트 완료
         let data = {
-            username: $("#username").val(),
-            password: $("#password").val(),
-            email: $("#email").val()
-        }
+                username: $("#username").val(),
+                password: $("#password").val(),
+                email: $("#email").val()
+            }
         // console.log(data); // console에 입력 받은 데이터가 들어오는지 테스트 완료
-
         /**
          * Ajax를 통해 서버에 회원가입 데이터를 비동기적으로 전송한다.
          * 전송할 데이터는 JSON 형태로 인코딩되며, 서버는 JSON 응답을 반환해야 한다.
@@ -47,10 +46,23 @@ let index = {
             contentType: "application/json; charset=utf-8", // 요청의 Content-Type 헤더를 설정한다.(body 데이터가 어떤 타입인지(MIME) 알려준다.)
             dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 문자열로 들어오고 json 타입이라면 => javascript 오브젝트로 들어온다. dataType을 생략 했을 경우 jquery가 MIME타입을 확인하고 자동으로 결정한다.
         }).done(function (resp) {
-            alert("회원가입이 완료되었습니다."); // 화면 테스트 완료
+            /**
+             * TODO: [오류 해결] 문제 : 회원가입 시 동일한 username이 입력되는 경우에도 "회원가입이 완료되었습니다." 메시지가 표시됨.
+             *  참고 : 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
+             *  원인 : 회원가입 처리 함수 서버 측에서 발생하는 exceptions.SQLError.createSQLException에 대한 클라이언트 측 처리 미비.
+             *  해결 : 회원가입 요청에 대한 응답 상태 코드(resp.status)를 확인하여, 500 에러 발생 시 적절한 메시지를 표시.
+             *         if(resp.status === 500)을 사용하여 서버 오류 시 사용자에게 "회원가입에 실패하였습니다." 메시지를 띄우고,
+             *         그렇지 않은 경우 "회원가입이 완료되었습니다." 메시지를 표시한다.
+             *         서버 측에서 동일한 username에 대한 처리 로직 강화 필요.
+             */
+            if (resp.status === 500) {
+                alert("회원가입에 실패하였습니다."); // 화면 테스트 완료
+            } else {
+                alert("회원가입이 완료되었습니다."); // 화면 테스트 완료
+                location.href = "/";
+            }
             // alert(resp); // 화면 테스트 완료
             // console.log(resp); // console에 입력 받은 데이터가 들어오는지 테스트 완료
-            location.href = "/"; // 성공 후 홈페이지로 리다이렉트한다.
         }).fail(function (error) {
             // 요청이 실패하였을 때 실행된다.
             alert(JSON.stringify(error)); // 실패 응답을 문자열로 변환하여 알려준다.

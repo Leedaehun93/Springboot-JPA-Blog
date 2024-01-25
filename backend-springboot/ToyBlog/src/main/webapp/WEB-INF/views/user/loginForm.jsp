@@ -16,24 +16,20 @@
     <%-- method="POST" : GET 방식의 HTTP 요청은 브라우저에 의해 캐시되어(cached) 저장되어 보안상 취약점으로 중요한 데이터는 POST 방식으로 요청한다. --%>
     <%--  POST 방식은 폼 데이터를 별도로 첨부하여 서버로 전달하는 방식으로 HTTP 요청은 브라우저에 의해 캐시되지 않아서, --%>
     <%--  브라우저 히스토리에도 남지않고 데이터의 길이에 대한 제한도 없는 장점이 있다. --%>
-    <form action="#" method="POST">
+    <form action="/auth/loginProc" method="post">
         <%-- username Start --%>
-        <div class="form-group"><label for="username">Username:</label>
+        <div class="form-group">
+            <label for="username">Username</label>
             <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
         </div>
         <%-- username End --%>
 
         <%-- password Start --%>
-        <div class="form-group"><label for="password">Password:</label>
+        <div class="form-group">
+            <label for="password">Password</label>
             <input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
         </div>
         <%-- password End --%>
-
-        <%-- Remember me checkbox Start --%>
-        <div class="form-group form-check"><label class="form-check-label">
-            <input name="remamber" class="form-check-input" type="checkbox"> Remember me</label>
-        </div>
-        <%-- Remember me checkbox End --%>
 
         <%-- 로그인 button Start --%>
         <button id="btn-login" class="btn btn-primary">로그인</button>

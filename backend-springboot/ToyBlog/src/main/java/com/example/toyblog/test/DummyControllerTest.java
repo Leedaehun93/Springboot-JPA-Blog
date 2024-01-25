@@ -1,7 +1,7 @@
 package com.example.toyblog.test;
 
 import com.example.toyblog.model.RoleType;
-import com.example.toyblog.model.entity.User;
+import com.example.toyblog.model.User;
 import com.example.toyblog.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +70,7 @@ public class DummyControllerTest {
 
         System.out.println("Id : " + user.getId());
         System.out.println("Role : " + user.getRole());
-        System.out.println("CreteDate : " + user.getCreteDate());
+        System.out.println("CreateDate : " + user.getCreateDate());
 
         /**
          * 기본 값 : USER 지정
@@ -90,9 +90,9 @@ public class DummyControllerTest {
      * Author : DH.Lee
      * Date : 2023-12-20
      * Note : 26강(블로그 프로젝트) - id로 select 테스트
-     * 1) .orElseThrow() 메소드를 활용한 익명 클래스(객체)와 람다 표현식 사용법
+     * 1) .orElseThrow() 메서드를 활용한 익명 클래스(객체)와 람다 표현식 사용법
      * Java 의 Optional 클래스에서 제공되며, 이를 사용하면 NullPointerException 을 방지하고 코드의 안정성을 향상시킬 수 있다.
-     * .orElseThrow() 메소드는 함수형 인터페이스를 파라미터로 받아, 해당 인터페이스의 구현체를 통해 예외를 생성하고 던진다.
+     * .orElseThrow() 메서드는 함수형 인터페이스를 파라미터로 받아, 해당 인터페이스의 구현체를 통해 예외를 생성하고 던진다.
      * 2) 스프링 부트의 MessageConverter
      * 요청: 웹브라우저로부터의 HTTP 요청 (예) user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
      * 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
@@ -106,13 +106,13 @@ public class DummyControllerTest {
 // http://localhost:8000/blog/dummy/user/4 => 예외 메시지를 반환한다.
     @GetMapping("/dummy/user/{id}")
 /**
- * detail 메소드는 특정 사용자의 상세 정보를 조회하는 기능을 수행한다.
+ * detail 메서드는 특정 사용자의 상세 정보를 조회하는 기능을 수행한다.
  *
  * @param id 사용자의 고유 식별자
  *  userRepository.findById(id)를 사용하여 데이터베이스에서 사용자 정보를 조회한다.
  *  만약 해당 ID에 대한 사용자 정보가 데이터베이스에 존재하지 않을 경우,
  *  orElseThrow()를 사용하여 사용자 정의 예외를 발생시킨다.
- *  이 메소드에서는 익명 클래스와 람다 표현식을 통해 예외 처리 방법을 보여준다.
+ *  이 메서드에서는 익명 클래스와 람다 표현식을 통해 예외 처리 방법을 보여준다.
  */
     public User detail(@PathVariable int id) {
 
@@ -180,8 +180,8 @@ public class DummyControllerTest {
     /**
      * 전체 조회
      *
-     * @GetMapping 어노테이션을 통해 /dummy/users URL에 대한 HTTP GET 요청을 list() 메소드에 매핑하며,
-     * 이 메소드는 userRepository.findAll() 을 호출하여 모든 User 객체를 List 형태로 반환한다.
+     * @GetMapping 어노테이션을 통해 /dummy/users URL에 대한 HTTP GET 요청을 list() 메서드에 매핑하며,
+     * 이 메서드는 userRepository.findAll() 을 호출하여 모든 User 객체를 List 형태로 반환한다.
      */
     // http://localhost:8000/blog/dummy/users
     @GetMapping("/dummy/users")
@@ -194,8 +194,8 @@ public class DummyControllerTest {
      *  반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
      *  이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
      *
-     * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
-     * 이 메소드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
+     * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메서드에 매핑하며,
+     * 이 메서드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
      */
     // http://localhost:8000/blog/dummy/user
     // http://localhost:8000/blog/dummy/user?page=0
@@ -209,8 +209,8 @@ public class DummyControllerTest {
         /**
          * 2. paging 처리 Page<User> 반환 타입 :
          *  반환된 페이지 정보에는 User 객체의 리스트뿐만 아니라 총 페이지 수, 현재 페이지 번호 등의 페이징 관련 정보도 포함된다.
-         * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메소드에 매핑하며,
-         *  이 메소드는 userRepository.findAll(pageable)을 호출하여 User 객체의 페이지 정보를 반환한다.
+         * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메서드에 매핑하며,
+         *  이 메서드는 userRepository.findAll(pageable)을 호출하여 User 객체의 페이지 정보를 반환한다.
          */
         // http://localhost:8000/blog/dummy/user
         // http://localhost:8000/blog/dummy/user?page=0
@@ -233,7 +233,7 @@ public class DummyControllerTest {
      */
 
     /**
-     * @@PutMapping : HTTP PUT 요청을 처리 메소드를 정의하고 사용자의 정보를 업데이트할 때 사용한다.
+     * @@PutMapping : HTTP PUT 요청을 처리 메서드를 정의하고 사용자의 정보를 업데이트할 때 사용한다.
      * @RequestBody : 클라이언트로부터 받은 JSON 형식의 데이터를 Java 객체(User 클래스의 인스턴스)로 변환하여 사용할 수 있게 해준다.
      * update 사용 방법 1 : userRepository.save(user);
      * save 함수에 id 를 전달하지 않으면 insert 를 해주고

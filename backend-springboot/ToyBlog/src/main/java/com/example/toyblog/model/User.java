@@ -1,4 +1,4 @@
-package com.example.toyblog.model.entity;
+package com.example.toyblog.model;
 
 import com.example.toyblog.model.RoleType;
 import lombok.Builder;
@@ -68,7 +68,7 @@ public class User {
      * 이 필드의 값은 데이터베이스 내에서 고유해야 한다.(unique = true)
      *  즉, 동일한 username을 가진 두 개의 레코드를 테이블에 저장할 수 없다.
      */
-    @Column(unique = true, nullable = false, length = 30)
+    @Column(nullable = false, length = 100, unique = true)
     private String username; // 아이디
 
     /**
@@ -109,9 +109,9 @@ public class User {
      * Hibernate ORM(객체-관계 매핑) 프레임워크에서 제공하는 특정 기능이며,
      * JPA 표준 사양에는 포함되어 있지 않아서 @UpdateTimestamp 어노테이션을 사용하기 위해서는 Hibernate를 ORM 프레임워크로 사용 할 것
      *
-     * 자바 SQL 이 들고 있는 Timestamp 사용하여 cretedate 생성하는 현재 시간을 자동으로 입력
+     * 자바 SQL 이 들고 있는 Timestamp 사용하여 createDate 생성하는 현재 시간을 자동으로 입력
      */
     @CreationTimestamp
-    private Timestamp creteDate;
+    private Timestamp createDate;
 
 } // end of class

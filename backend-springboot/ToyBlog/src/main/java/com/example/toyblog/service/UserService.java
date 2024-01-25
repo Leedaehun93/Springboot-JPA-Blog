@@ -1,7 +1,7 @@
 package com.example.toyblog.service;
 
 import com.example.toyblog.model.RoleType;
-import com.example.toyblog.model.entity.User;
+import com.example.toyblog.model.User;
 import com.example.toyblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -69,7 +69,13 @@ public class UserService {
         user.setPassword(encPassword);                      // 암호화된 패스워드 설정
 
         user.setRole(RoleType.USER);                        // 기본 사용자 권한 설정
-        userRepository.save(user);                          // 사용자 정보 데이터베이스에 저장
+        try{
+            userRepository.save(user);                          // 사용자 정보 데이터베이스에 저장
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+
+        }
     }
 
     /**

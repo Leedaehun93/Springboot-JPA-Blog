@@ -1,16 +1,13 @@
 package com.example.toyblog.controller.api;
 
-import com.example.toyblog.model.RoleType;
-import com.example.toyblog.model.dto.ResponseDto;
-import com.example.toyblog.model.entity.User;
+import com.example.toyblog.dto.ResponseDto;
+import com.example.toyblog.model.User;
 import com.example.toyblog.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpSession; //Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
 
 /**
  * ======================================
