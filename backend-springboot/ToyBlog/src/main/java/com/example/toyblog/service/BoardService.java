@@ -1,20 +1,23 @@
 package com.example.toyblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.toyblog.model.User;
 import com.example.toyblog.model.Board;
 import com.example.toyblog.repository.BoardRepository;
+import java.util.List;
 
 /**
  * ======================================
  * FileName : BoardService
- * Author : DH.Lee
- * Date : 2024-01-26
- * Note : 53강(블로그 프로젝트) - 글쓰기 완료
- * 1)
+ * Note :
+ * 53강(블로그 프로젝트) - 글쓰기 완료
+ * - summernote 스크립트를 사용하여 글쓰기 기능을 구현
+ * 54강(블로그 프로젝트) - 글목록보기
+ * 55강(블로그 프로젝트) - 글목록 페이징하기
  * ======================================
  */
 
@@ -48,6 +51,10 @@ public class BoardService {
         board.setCount(0);
         board.setUser(user);
         boardRepository.save(board); // 게시글 데이터베이스에 저장
+    }
+
+    public Page<Board> 글목록(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 
 } // end of class
