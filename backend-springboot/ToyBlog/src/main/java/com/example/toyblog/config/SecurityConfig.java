@@ -11,15 +11,24 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * ======================================
  * FileName : SecurityConfig
- * Author : DH.Lee
- * Date : 2024-01-22
- * Note : 49강(블로그 프로젝트) - 스프링 시큐리티 로그인 페이지 커스터마이징
- * 스프링 시큐리티의 폼 로그인(form login) 기능을 사용자 정의 로그인 페이지로 변경
- * 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
- * <p>
- * TODO: Date : 2024-01-26
- *  WebSecurityConfigurerAdapter deprecated 사용 불가하여
- *  2.7로 시큐리티 필터 로직으로 변경
+ * Note :
+ * 49강(블로그 프로젝트) - 스프링 시큐리티 로그인 페이지 커스터마이징
+ * - 스프링 시큐리티의 폼 로그인(form login) 기능을 사용자 정의 로그인 페이지로 변경
+ * - 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+ * TODO: 49강(블로그 프로젝트) - 스프링 시큐리티 기반 로그인 페이지 커스터마이징 구성 설정 방식 변경
+ *  WebSecurityConfigurerAdapter deprecated 사용 불가하여(에러 발생) 2.7로 시큐리티 필터 로직으로 변경 필요
+ *  - Spring Security 구성 방식을 Spring 5.4 이상의 권장 방식으로 변경
+ *  - WebSecurityConfigurerAdapter 상속 대신 SecurityFilterChain 빈을 사용하여 보안 설정 구성
+ *  - 로그인 페이지 URL 및 보안 설정의 코드 스타일을 현대적 방식으로 업데이트 수정
+ * 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
+ * - BCryptPasswordEncoder(비크립트패스워드엔코더) 라는
+ *   스프링 시큐리티 패키지를 사용해서 패스워드를 해시로 암호화한다.
+ * - 이 메서드는 BCryptPasswordEncoder의 인스턴스를
+ *   Spring IoC 컨테이너에 비밀번호를 복호화/암호화하는
+ *   로직이 담긴 객체를 Bean으로 등록한다.
+ *   이렇게 등록된 인코더는 애플리케이션 전반에 걸쳐 비밀번호 암호화에 사용된다.
+ * 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
+ * - 스프링 시큐리티의 인증 매니저를 구성하여 로그인 프로세스를 이용한다.
  * ======================================
  */
 
@@ -43,9 +52,6 @@ public class SecurityConfig {
     }
 
     /**
-     * Note : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
-     */
-    /**
      * BCryptPasswordEncoder를 사용하여 비밀번호를 해시로 암호화한다.
      * 이 메서드는 BCryptPasswordEncoder의 인스턴스를 Spring IoC 컨테이너에
      * 비밀번호를 복호화/암호화하는 로직이 담긴 객체를 Bean으로 등록한다.
@@ -60,7 +66,6 @@ public class SecurityConfig {
     }
 
     /**
-     * TODO: 2.7로 시큐리티 필터 로직 변경
      * 스프링 시큐리티의 HTTP 보안 설정을 위한 SecurityFilterChain을 정의한다.
      * 이 설정은 모든 HTTP 요청에 대한 보안 요구사항을 구성한다.
      *
@@ -85,9 +90,6 @@ public class SecurityConfig {
         // 3. 로그인 처리 프로세스 설정
         // 폼 기반 로그인 설정을 위한 메서드로 설정을 활성화 한다.
         http.formLogin(f -> f.loginPage("/auth/loginForm") // 사용자가 이 URL로 접속하면, 스프링 시큐리티가 제공하는 기본 로그인 폼 대신 사용자 정의 로그인 페이지(커스텀)가 표시됨
-                /**
-                 * Note : 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
-                 */
                 .loginProcessingUrl("/auth/loginProc") // 스프링 시큐리티가 해당 주소로 요청 오는 로그인을 가로채서 대신 로그인을 해준다.
                 .defaultSuccessUrl("/") // 정상적인 요청일 때 이 URL로 리다이렉트한다.
         );

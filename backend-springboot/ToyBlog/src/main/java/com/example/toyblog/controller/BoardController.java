@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * ======================================
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * - index.jsp에 JSTL forEach와 EL을 사용하여 게시글 목록 렌더링
  * - viewResolver를 통한 게시글 목록의 뷰 처리
  * 55강(블로그 프로젝트) - 글목록 페이징하기
+ * 56강(블로그 프로젝트) - 글 상세보기
  * ======================================
  */
 @Controller
@@ -39,6 +41,20 @@ public class BoardController {
     public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         model.addAttribute("boards", boardService.글목록(pageable));
         return "index"; // MVC 설정 : /WEB-INF/views/index.jsp // viewResolver 작동
+    }
+
+    /**
+     * 게시글 상세보기 '/board/{id}' URL에 대한 GET 요청을 처리하는 메서드
+     * URL에서 '{id}' 부분을 추출하여 해당 게시글의 상세 정보를 조회하고, 이를 뷰에 전달한다.
+     *
+     * @param id URL 경로에서 추출된 게시글의 고유 식별자. 게시글을 조회하기 위해 사용된다.
+     * @param model 스프링 MVC에서 제공하는 모델 객체. 뷰에 데이터를 전달하는데 사용된다.
+     * @return "board/detail" 문자열을 반환하여 viewResolver에 의해 '/WEB-INF/views/board/detail.jsp' 페이지로 게시글 상세 정보가 렌더링된다.
+     */
+    @GetMapping("/board/{id}")
+    public String findBy(@PathVariable int id, Model model){
+        model.addAttribute("board", boardService.글상세보기(id));
+        return "board/detail";
     }
 
     /**

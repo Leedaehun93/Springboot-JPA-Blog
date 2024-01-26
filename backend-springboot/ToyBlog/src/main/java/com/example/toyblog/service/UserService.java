@@ -11,12 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * ======================================
  * FileName : UserService
- * Author : DH.Lee
- * Date : 2024-01-08
- * Note : 39강(블로그 프로젝트) - 회원가입 하기 두번째 완료
- * 1) 사용자 관련 비즈니스 로직을 처리하기 위해 UserService 클래스 구성
- * 회원가입 메서드 : 사용자를 받아서 회원가입 로직을 처리하고
+ * Note :
+ * 39강(블로그 프로젝트) - 회원가입 하기 두번째 완료
+ * - 사용자 관련 비즈니스 로직을 처리하기 위해 UserService 클래스 구성
+ * - 회원가입 메서드 : 사용자를 받아서 회원가입 로직을 처리하고
  * 트랜잭션 관리를 통해 데이터베이스 작업을 관리한다.
+ * 49강(블로그 프로젝트) - 스프링 시큐리티 기반 로그인 페이지 커스터마이징
+ * - 스프링 시큐리티의 폼 로그인(form login) 기능을 사용자 정의 로그인 페이지로 변경
+ * - 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
+ * 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
+ * - 회원가입 메서드 : 사용자를 받아 회원가입 로직을 처리한다.
  * ======================================
  */
 
@@ -35,9 +39,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository; // DI
 
-    /**
-     * Note : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
-     */
     /**
      * 스프링의 의존성 주입(Dependency Injection, DI)을 위한 어노테이션
      * 비밀번호 암호화를 위한 BCryptPasswordEncoder
@@ -59,18 +60,15 @@ public class UserService {
      */
     @Transactional
     public void 회원가입(User user) {
-        /**
-         * Note : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
-         */
         // BCryptPasswordEncoder 스프링 시큐리티 패키지를 사용해서 패스워드를 해시로 암호화
         String rawPassword = user.getPassword();            // 원본 패스워드
         String encPassword = encoder.encode(rawPassword);   // 해시(암호화)된 패스워드
         user.setPassword(encPassword);                      // 암호화된 패스워드 설정
 
         user.setRole(RoleType.USER);                        // 기본 사용자 권한 설정
-        try{
-            userRepository.save(user);                          // 사용자 정보 데이터베이스에 저장
-        }catch(Exception e){
+        try {
+            userRepository.save(user);                      // 사용자 정보 데이터베이스에 저장
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
 

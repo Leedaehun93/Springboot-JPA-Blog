@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dhlee
-  Date: 2024-01-26
-  Time: 오후 5:03
-  Note : 53강(블로그 프로젝트) - 글쓰기 완료
-  To change this template use File | Settings | File Templates.
---%>
+<!-- FileName : saveForm.jsp -->
+<!-- Note : 53강(블로그 프로젝트) - 글쓰기 완료 -->
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- header.jsp, footer.jsp include 상위 경로 다름 --%>

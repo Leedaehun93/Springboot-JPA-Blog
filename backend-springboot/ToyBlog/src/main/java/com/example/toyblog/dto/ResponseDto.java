@@ -9,9 +9,8 @@ import org.springframework.http.HttpStatus;
 /**
  * ======================================
  * FileName : ResponseDto
- * Author : DH.Lee
- * Date : 2024-01-08
- * Note : 38강(블로그 프로젝트) - 회원가입 하기 Ajax요청
+ * Note :
+ * 38강(블로그 프로젝트) - 회원가입 하기 Ajax요청
  * 1) jQuery를 사용하여 웹 페이지에서 사용자 입력을 받아 AJAX를 통해 서버에 데이터를 전송하는 방법
  *    ResponseDto<T> 클래스는 API 응답을 위한 범용 데이터 전송 객체(Data Transfer Object, DTO)
  *    제네릭 타입 <T>를 사용하여 다양한 유형의 응답 데이터를 유연하게 처리할 수 있다.

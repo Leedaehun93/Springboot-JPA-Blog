@@ -4,10 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,10 +12,12 @@ import java.util.List;
 /**
  * ======================================
  * FileName : Board
- * Author : DH.Lee
- * Date : 2023-12-14
- * Note : 20강(블로그 프로젝트) - Board테이블 생성
- * User 모델 클래스와 동일한 부분은 주석 설명 생략
+ * Note :
+ * 20강(블로그 프로젝트) - Board테이블 생성
+ * - User 모델 클래스와 동일한 부분은 주석 설명 생략
+ * 53강(블로그 프로젝트) - 글쓰기 완료
+ * - summernote 스크립트를 사용하여 글쓰기 기능을 구현
+ * - 조회수 별도 지정으로 @ColumnDefault("0") 제거
  * ======================================
  */
 @Builder

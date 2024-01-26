@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * ======================================
  * FileName : BoardRepository
- * Author : DH.Lee
- * Date : 2024-01-26
- * Note : 53강(블로그 프로젝트) - 글쓰기 완료
- * 1)
+ * Note :
+ * 53강(블로그 프로젝트) - 글쓰기 완료
+ * - summernote 스크립트를 사용하여 글쓰기 기능을 구현
  * ======================================
  */
 

@@ -2,17 +2,32 @@ package com.example.toyblog.repository;
 
 import com.example.toyblog.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
 /**
  * ======================================
  * FileName : UserRepository
- * Author : DH.Lee
- * Date : 2023-12-15
- * Note : 24강(블로그 프로젝트) - 회원가입 위한 insert 테스트
- * 1) User DAO(Data Access Object) JPA CRUD 인터페이스
- * 자동으로  등록이 된다.
+ * Note :
+ * 24강(블로그 프로젝트) - 회원가입 위한 insert 테스트
+ * - 테이블간의 연관관계및회원가입 insert, enum 테스트
+ * - User DAO(Data Access Object) JPA CRUD 인터페이스 자동으로 등록이 된다.
+ * 46강(블로그 프로젝트) - 프로젝트 전통적인 방식의 로그인 방법
+ * - 로그인 기능 구현을 위한 세션 관리 추가
+ * - 사용자 이름과 비밀번호를 사용하여 로그인
+ * - 로그인 성공 시 사용자 정보를 세션에 저장
+ * - JSP 페이지에서 사용자의 로그인 상태에 따라
+ *   다른 네비게이션 바 항목을 표시하는 로직을 구현
+ *   (JSTL 태그를 사용하여 로그인 여부에 따라 조건부로
+ *   HTML 내용 렌더링(로그인, 회원가입), (글쓰기, 회원정보, 로그아웃)
+ * 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
+ * - BCryptPasswordEncoder(비크립트패스워드엔코더) 라는
+ *   스프링 시큐리티 패키지를 사용해서 패스워드를 해시로 암호화한다.
+ * - 이 메서드는 BCryptPasswordEncoder의 인스턴스를
+ *   Spring IoC 컨테이너에 비밀번호를 복호화/암호화하는
+ *   로직이 담긴 객체를 Bean으로 등록한다.
+ *   이렇게 등록된 인코더는 애플리케이션 전반에 걸쳐 비밀번호 암호화에 사용된다.
+ * 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
+ * - 스프링 시큐리티의 인증 매니저를 구성하여 로그인 프로세스를 이용한다.
  * ======================================
  */
 
@@ -31,9 +46,7 @@ import java.util.Optional;
  *      JpaRepository<User, Integer> 의 두 번째 매개변수는 기본 키의 타입을 나타낸다.
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
-    /**
-     * Note : 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
-     */
+
     /**
      * 쿼리 메서드 네이밍 전략을 사용한다.
      * 스프링 데이터 JPA에서는 메서드 이름을 분석하여 실제 데이터베이스 쿼리를 생성

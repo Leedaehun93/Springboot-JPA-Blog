@@ -1,31 +1,25 @@
 package com.example.toyblog.model;
 
-import com.example.toyblog.model.RoleType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * ======================================
  * FileName : User
- * Author : DH.Lee
- * Date : 2023-12-13
- * Note : 18강(블로그 프로젝트) - User테이블 생성(JPA 어노테이션의 사용법과 엔티티의 역할)
- * User 모델 클래스 : User 엔티티 클래스는 데이터베이스의 User 테이블과 매핑된다.
- * DTO 와 Entity 용도의 차이 :
- *  DTO는 단순히 데이터 전송에 초점을 맞추는 반면, Entity는 데이터베이스의 데이터를 객체로 나타내는 데 사용된다.
- *  수명 주기: DTO는 요청이나 응답을 처리하는 데 사용되고 종료되지만, Entity는 애플리케이션 전반에 걸쳐 지속적으로 사용된다.
- *  데이터베이스 매핑: Entity는 데이터베이스 테이블과 직접 매핑되는 반면, DTO는 매핑이 되지 않는다.
- *  ORM(Object-Relational Mapping) -> JAVA(다른 언어) Object(객체) -> 테이블로 매핑해주는 기술이다.
- *  이를 통해 객체의 속성은 테이블의 컬럼과 연결되며, 객체의 인스턴스(또는 객체)는 테이블의 행에 해당하게 한다.
+ * Note :
+ * 18강(블로그 프로젝트) - User테이블 생성(JPA 어노테이션의 사용법과 엔티티의 역할)
+ * - User 모델 클래스 : User 엔티티 클래스는 데이터베이스의 User 테이블과 매핑된다.
+ * - DTO 와 Entity 용도의 차이 :
+ *   DTO는 단순히 데이터 전송에 초점을 맞추는 반면, Entity는 데이터베이스의 데이터를 객체로 나타내는 데 사용된다.
+ * - 수명 주기: DTO는 요청이나 응답을 처리하는 데 사용되고 종료되지만, Entity는 애플리케이션 전반에 걸쳐 지속적으로 사용된다.
+ *   데이터베이스 매핑: Entity는 데이터베이스 테이블과 직접 매핑되는 반면, DTO는 매핑이 되지 않는다.
+ *   ORM(Object-Relational Mapping) -> JAVA(다른 언어) Object(객체) -> 테이블로 매핑해주는 기술이다.
+ *   이를 통해 객체의 속성은 테이블의 컬럼과 연결되며, 객체의 인스턴스(또는 객체)는 테이블의 행에 해당하게 한다.
  * ======================================
  */
 

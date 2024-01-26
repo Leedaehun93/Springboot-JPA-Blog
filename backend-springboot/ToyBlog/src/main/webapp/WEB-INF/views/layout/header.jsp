@@ -1,11 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dhlee
-  Date: 2024-01-04
-  Time: 오후 9:48
-  Note : 53강(블로그 프로젝트) - 글쓰기 완료
-  To change this template use File | Settings | File Templates.
---%>
+<!-- FileName : header.jsp -->
+<!-- Note : 34강(블로그 프로젝트) - 로그인, 회원가입 화면 만들기 -->
+<!-- Note : 46강(블로그 프로젝트) - 프로젝트 전통적인 방식의 로그인 방법 -->
+<!-- Note : 48강(블로그 프로젝트) - 스프링 시큐리티 체험해보기 -->
+<!-- Note : 49강(블로그 프로젝트) - 스프링 시큐리티 기반 로그인 페이지 커스터마이징 -->
+<!-- Note : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기 -->
+<!-- Note : 52강(블로그 프로젝트) - 스프링 시큐리티 로그인 -->
+<!-- Note : 53강(블로그 프로젝트) - 글쓰기 완료 -->
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- 스크립트 로딩 순서 중요 : --%>
@@ -48,7 +49,6 @@
     <!-- Bootstrap 및 기타 필요한 스크립트 포함 -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <%-- Note : 53강(블로그 프로젝트) - 글쓰기 완료 --%>
     <!-- summernote 및 기타 필요한 링크 포함 -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>

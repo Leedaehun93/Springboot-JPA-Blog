@@ -18,6 +18,7 @@ import java.util.List;
  * - summernote 스크립트를 사용하여 글쓰기 기능을 구현
  * 54강(블로그 프로젝트) - 글목록보기
  * 55강(블로그 프로젝트) - 글목록 페이징하기
+ * 56강(블로그 프로젝트) - 글 상세보기
  * ======================================
  */
 
@@ -53,8 +54,30 @@ public class BoardService {
         boardRepository.save(board); // 게시글 데이터베이스에 저장
     }
 
+    /**
+     * 페이지네이션을 적용하여 게시글 목록을 조회하는 메서드
+     * Pageable 객체를 매개변수로 받아, 지정된 페이지 크기와 정렬 순서에 따라 게시글 페이지를 반환한다.
+     *
+     * @param pageable 페이지네이션 정보를 담고 있는 Pageable 객체
+     * @return 페이지네이션 적용된 게시글 목록이 담긴 Page<Board> 객체
+     */
     public Page<Board> 글목록(Pageable pageable){
         return boardRepository.findAll(pageable);
+    }
+
+    /**
+     * 주어진 id에 해당하는 게시글을 조회하는 메서드
+     * id에 해당하는 게시글이 존재하지 않을 경우, IllegalArgumentException 예외를 발생시킨다.
+     *
+     * @param id 조회하려는 게시글의 고유 식별자.
+     * @return id에 해당하는 Board 객체. 게시글이 존재하지 않을 경우 예외 발생
+     * @throws IllegalArgumentException 게시글이 존재하지 않을 때 발생하는 예외
+     */
+    public Board 글상세보기(int id) {
+        return boardRepository.findById(id)
+                .orElseThrow(()->{
+                    return new IllegalArgumentException("글 상세보기 실패:아이디를 찾을 수 없습니다.");
+                });
     }
 
 } // end of class

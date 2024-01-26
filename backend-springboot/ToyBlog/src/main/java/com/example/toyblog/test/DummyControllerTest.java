@@ -14,18 +14,37 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import java.util.List;
 import java.util.function.Supplier;
 
 /**
  * ======================================
  * FileName : DummyControllerTest
- * Author : DH.Lee
- * Date : 2023-12-15
- * Note : 24강(블로그 프로젝트) - 회원가입 위한 insert 테스트
- * 1) Postman 에서 POST 방식의 http://localhost:8000/blog/dummy/join 도메인 요청
- * 2) Params 타입을 Body로 선택하고 x-www-form-urlencoded  MIME 타입으로 진행한다.
- * x-www-form-urlencoded -> key=value&key=value&key=value
+ * Note :
+ * 24강(블로그 프로젝트) - 회원가입 위한 insert 테스트
+ * - Postman 에서 POST 방식의 http://localhost:8000/blog/dummy/join 도메인 요청
+ * - Params 타입을 Body로 선택하고 x-www-form-urlencoded  MIME 타입으로 진행한다.
+ * - x-www-form-urlencoded -> key=value&key=value&key=value
+ * 26강(블로그 프로젝트) - id로 select 테스트
+ * - .orElseThrow() 메서드를 활용한 익명 클래스(객체)와 람다 표현식 사용법
+ * Java 의 Optional 클래스에서 제공되며, 이를 사용하면 NullPointerException 을 방지하고 코드의 안정성을 향상시킬 수 있다.
+ * .orElseThrow() 메서드는 함수형 인터페이스를 파라미터로 받아, 해당 인터페이스의 구현체를 통해 예외를 생성하고 던진다.
+ * - 스프링 부트의 MessageConverter
+ * 요청: 웹브라우저로부터의 HTTP 요청 (예) user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
+ * 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
+ * 스프링 부트에서는 MessageConverter 가 응답 시에 자동으로 작동한다.
+ * 자바 오브젝트를 리턴할 경우, MessageConverter 는 Jackson 라이브러리를 호출하여
+ * user 오브젝트를 JSON 으로 변환하고, 이를 웹브라우저에게 응답으로 전송한다.
+ * 27강(블로그 프로젝트) - 전체 select 및 paging 테스트
+ * - 전체 조회(여러 건의 데이터)
+ * - paging 처리를 위한 2가지 방법 : List<User> 반환 타입과 Page<User> 반환 타입
+ * 28~29강(블로그 프로젝트) - update 테스트, 영속성 컨텍스트와 더티체킹
+ * - update 사용 방법 1 : userRepository.save(user);
+ * - update 사용 방법 2 : @Transactional 어노테이션과 Dirty Checking(더티 체킹)
+ * 30강(블로그 프로젝트) - 삭제하기 테스트
+ * - @DeleteMapping 어노테이션을 이용하여 HTTP DELETE 요청으로
+ * - 특정 사용자 ID 에 해당하는 데이터를 데이터베이스에서 삭제하기
  * ======================================
  */
 @RestController
@@ -41,7 +60,6 @@ public class DummyControllerTest {
      */
     @Autowired
     private UserRepository userRepository; // DI 를 통해 UserRepository 인스턴스를 자동 주입 받는다.
-
 
     // http://localhost:8000/blog/dummy/join(요청)
     // http 의 body 에 username, password, email 데이터를 가지고(요청)
@@ -84,27 +102,9 @@ public class DummyControllerTest {
 
     } // end of join
 
-    /**
-     * ======================================
-     * FileName : DummyControllerTest
-     * Author : DH.Lee
-     * Date : 2023-12-20
-     * Note : 26강(블로그 프로젝트) - id로 select 테스트
-     * 1) .orElseThrow() 메서드를 활용한 익명 클래스(객체)와 람다 표현식 사용법
-     * Java 의 Optional 클래스에서 제공되며, 이를 사용하면 NullPointerException 을 방지하고 코드의 안정성을 향상시킬 수 있다.
-     * .orElseThrow() 메서드는 함수형 인터페이스를 파라미터로 받아, 해당 인터페이스의 구현체를 통해 예외를 생성하고 던진다.
-     * 2) 스프링 부트의 MessageConverter
-     * 요청: 웹브라우저로부터의 HTTP 요청 (예) user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
-     * 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
-     * 스프링 부트에서는 MessageConverter 가 응답 시에 자동으로 작동한다.
-     * 자바 오브젝트를 리턴할 경우, MessageConverter 는 Jackson 라이브러리를 호출하여
-     * user 오브젝트를 JSON 으로 변환하고, 이를 웹브라우저에게 응답으로 전송한다.
-     * ======================================
-     */
-
-// http://localhost:8000/blog/dummy/user/3 => json 객체 데이터로 반환한다.
-// http://localhost:8000/blog/dummy/user/4 => 예외 메시지를 반환한다.
     @GetMapping("/dummy/user/{id}")
+    // http://localhost:8000/blog/dummy/user/3 => json 객체 데이터로 반환한다.
+    // http://localhost:8000/blog/dummy/user/4 => 예외 메시지를 반환한다.
 /**
  * detail 메서드는 특정 사용자의 상세 정보를 조회하는 기능을 수행한다.
  *
@@ -132,23 +132,23 @@ public class DummyControllerTest {
                     }
                 });
 
-        // TODO : 아래 부분은 스프링 부트의 MessageConverter 에 대한 설명
-        // 요청: 웹브라우저로부터의 HTTP 요청
-        // user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
-        // 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
-        // 스프링 부트에서는 MessageConverter 가 응답 시에 자동으로 작동한다.
-        // 자바 오브젝트를 리턴할 경우, MessageConverter 는 Jackson 라이브러리를 호출하여
-        // user 오브젝트를 JSON 으로 변환하고, 이를 웹브라우저에게 응답으로 전송한다.
+        /**
+         * 아래 부분은 스프링 부트의 MessageConverter 에 대한 설명
+         * 요청: 웹브라우저로부터의 HTTP 요청
+         * user 객체: Java 오브젝트, 데이터베이스에서 조회된 사용자 정보를 담고 있다.
+         * 변환: 웹브라우저가 이해할 수 있는 데이터 형식(JSON)으로 변환
+         * 스프링 부트에서는 MessageConverter 가 응답 시에 자동으로 작동한다.
+         * 자바 오브젝트를 리턴할 경우, MessageConverter 는 Jackson 라이브러리를 호출하여
+         * user 오브젝트를 JSON 으로 변환하고, 이를 웹브라우저에게 응답으로 전송한다.
+         */
         return user; // 조회된 사용자 정보 또는 발생한 예외(예외 메시지)를 반환한다.
 
-
-        // 람다 표현식을 사용한 예외 처리 방법
         /**
          * 2. 람다 표현식을 활용한 예외 처리
-         *  - Java 8 이후 도입된 간단한 로직에 적합한 표현식이다.
-         *  - 코드를 익명 클래스보다 더 간결하게 만들 수 있으며, 선언적으로 작성할 수 있다.
-         *  - userRepository.findById(id) : 데이터베이스에서 id에 해당하는 사용자 정보를 조회한다.
-         *  - 조회된 정보가 없으면 .orElseThrow로 람다 표현식을 사용하여 예외를 발생시킨다.
+         * - Java 8 이후 도입된 간단한 로직에 적합한 표현식이다.
+         * - 코드를 익명 클래스보다 더 간결하게 만들 수 있으며, 선언적으로 작성할 수 있다.
+         * - userRepository.findById(id) : 데이터베이스에서 id에 해당하는 사용자 정보를 조회한다.
+         * - 조회된 정보가 없으면 .orElseThrow로 람다 표현식을 사용하여 예외를 발생시킨다.
          */
 //        User user = userRepository.findById(id)
 //                .orElseThrow(() ->
@@ -165,18 +165,6 @@ public class DummyControllerTest {
 
     } // end of detail
 
-
-    /**
-     * ======================================
-     * FileName : DummyControllerTest
-     * Author : DH.Lee
-     * Date : 2023-12-21
-     * Note : 27강(블로그 프로젝트) - 전체 select 및 paging 테스트
-     * 1) 전체 조회(여러 건의 데이터)
-     * 2) paging 처리를 위한 2가지 방법 : List<User> 반환 타입과 Page<User> 반환 타입
-     * ======================================
-     */
-
     /**
      * 전체 조회
      *
@@ -191,19 +179,21 @@ public class DummyControllerTest {
 
     /**
      * 1. paging 처리 List<User> 반환 타입 :
-     *  반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
-     *  이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
+     * 반환된 페이지 정보에는 단순히 User 객체들의 리스트 정보만 제공한다.
+     * 이 경우 페이지 정보가 필요하지 않은 경우에 적합하다.
      *
      * @GetMapping 어노테이션을 통해 /dummy/user URL에 대한 HTTP GET 요청을 PageList 메서드에 매핑하며,
-     * 이 메서드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정하고)
+     * 이 메서드는 userRepository.findAll(pageable) 을 호출하여 User 객체를 한 페이지당 2건으로(페이지 크기를 2로 설정)
      */
     // http://localhost:8000/blog/dummy/user
     // http://localhost:8000/blog/dummy/user?page=0
     // http://localhost:8000/blog/dummy/user?page=1
     @GetMapping("/dummy/user")
-    public List<User> PageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<User> PageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> pagingUser = userRepository.findAll(pageable);
-        return pagingUser.getContent();
+
+        List<User> users = pagingUser.getContent();
+        return pagingUser;
 //    }
 
         /**
@@ -222,17 +212,6 @@ public class DummyControllerTest {
     } // end of PageList
 
     /**
-     * ======================================
-     * FileName : User
-     * Author : DH.Lee
-     * Date : 2023-12-26
-     * Note : 28~29강(블로그 프로젝트) - update 테스트, 영속성 컨텍스트와 더티체킹
-     * update 사용 방법 1 : userRepository.save(user);
-     * update 사용 방법 2 : @Transactional 어노테이션과 Dirty Checking(더티 체킹)
-     * ======================================
-     */
-
-    /**
      * @@PutMapping : HTTP PUT 요청을 처리 메서드를 정의하고 사용자의 정보를 업데이트할 때 사용한다.
      * @RequestBody : 클라이언트로부터 받은 JSON 형식의 데이터를 Java 객체(User 클래스의 인스턴스)로 변환하여 사용할 수 있게 해준다.
      * update 사용 방법 1 : userRepository.save(user);
@@ -247,7 +226,6 @@ public class DummyControllerTest {
      * @Transactional : JPA 의 더티 체킹(dirty checking) 기능이 활성화되어, 엔티티의 변경 사항이 자동으로 감지하여 데이터베이스에 반영된다.
      * 트랜잭션이 성공적으로 완료되면 데이터베이스 변경 사항이 커밋되고, 예외가 발생하면 롤백한다.
      */
-
     // http://localhost:8000/blog/dummy/user/1
     @Transactional
     @PutMapping("/dummy/user/{id}")
@@ -272,15 +250,6 @@ public class DummyControllerTest {
         return user; // 업데이트된 사용자 엔티티 반환
 
     } // end of update
-
-    /**
-     * ======================================
-     * FileName : User
-     * Author : DH.Lee
-     * Date : 2023-12-26
-     * Note : 30강(블로그 프로젝트) - 삭제하기 테스트
-     * ======================================
-     */
 
     /**
      * @DeleteMapping 어노테이션을 이용하여 HTTP DELETE 요청으로
