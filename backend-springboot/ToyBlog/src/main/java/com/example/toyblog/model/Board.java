@@ -53,7 +53,6 @@ public class Board {
     private String content;
 
     //** 카운트(조회수) 필드 : null을 허용하지 않으며, 최대 길이는 100자 */
-    @ColumnDefault("0")
     private int count;
 
     /**

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- header include --%>
-<%@include file="layout/header.jsp" %>
+<%@ include file="layout/header.jsp" %>
 
 <%-- Card-1 Start --%>
 <div class="container">
@@ -44,4 +44,4 @@
 <%-- Card-3 End --%>
 
 <%-- footer include --%>
-<%@include file="layout/footer.jsp" %>
+<%@ include file="layout/footer.jsp" %>

@@ -4,7 +4,8 @@
  */
 let index = {
     /**
-     * init 함수 : 버튼에 클릭 이벤트 리스너를 연결하고 화살표 함수 (() => {})를 사용하여 this를 현재 객체(index)에 바인딩한다.
+     * init 함수 : 버튼에 클릭 이벤트 리스너를 연결한다.
+     * 화살표 함수를 사용하여 이벤트 핸들러 내부에서 this가 index 객체를 참조하도록 한다.
      */
     init: function () {
         $("#btn-save").on("click", () => { // 버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
@@ -24,11 +25,9 @@ let index = {
      */
     save: function () {
         /**
-         * 사용자로부터 입력 받은 데이터를 임시 저장하는 용도로
-         * http://localhost:8000/auth/joinForm 에서
-         * "회원가입완료" 버튼 클릭시 화면 출력
+         * 사용자 입력 데이터를 JSON 객체로 만들어 서버에 전송한다.
          */
-            // alert("save 함수 호출"); // 화면 테스트 완료
+        // alert("save 함수 호출"); // 화면 테스트 완료
         let data = {
                 username: $("#username").val(),
                 password: $("#password").val(),
@@ -48,9 +47,9 @@ let index = {
         }).done(function (resp) {
             /**
              * TODO: [오류 해결] 문제 : 회원가입 시 동일한 username이 입력되는 경우에도 "회원가입이 완료되었습니다." 메시지가 표시됨.
-             *  참고 : 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
-             *  원인 : 회원가입 처리 함수 서버 측에서 발생하는 exceptions.SQLError.createSQLException에 대한 클라이언트 측 처리 미비.
-             *  해결 : 회원가입 요청에 대한 응답 상태 코드(resp.status)를 확인하여, 500 에러 발생 시 적절한 메시지를 표시.
+             *  - 참고 : 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
+             *  - 원인 : 회원가입 처리 함수 서버 측에서 발생하는 exceptions.SQLError.createSQLException에 대한 클라이언트 측 처리 미비.
+             *  - 해결 : 회원가입 요청에 대한 응답 상태 코드(resp.status)를 확인하여, 500 에러 발생 시 적절한 메시지를 표시.
              *         if(resp.status === 500)을 사용하여 서버 오류 시 사용자에게 "회원가입에 실패하였습니다." 메시지를 띄우고,
              *         그렇지 않은 경우 "회원가입이 완료되었습니다." 메시지를 표시한다.
              *         서버 측에서 동일한 username에 대한 처리 로직 강화 필요.
@@ -103,5 +102,6 @@ let index = {
 } // end of index
 /**
  * init 함수는 페이지가 로드되었을 때 호출된다.
+ * 스크립트 실행 시 init 함수를 호출하여 이벤트 리스너를 설정한다.
  */
 index.init();

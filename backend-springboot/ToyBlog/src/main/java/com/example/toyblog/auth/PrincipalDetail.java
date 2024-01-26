@@ -1,11 +1,11 @@
 package com.example.toyblog.auth;
 
-import lombok.Data;
-
-import com.example.toyblog.model.User;
+import lombok.Getter;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.toyblog.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +25,7 @@ import java.util.Collection;
  * 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가 되면
  * UserDetail 타입의 오브젝트를 스프링 시큐리티의 고유한 세션저장소에 저장을 해준다.
  */
-@Data
+@Getter
 public class PrincipalDetail implements UserDetails {
     /**
      * 콤포지션(composition) : "has-a" 관계로, 한 클래스가 다른 클래스의 인스턴스를 멤버 변수로 포함하는 것
