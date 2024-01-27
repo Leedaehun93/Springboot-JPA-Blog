@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * ======================================
  * FileName : UserApiController
- * Author : DH.Lee
- * Date : 2024-01-08
- * Note : 38강(블로그 프로젝트) - 회원가입 하기 Ajax요청
- * 1) jQuery를 사용하여 웹 페이지에서 사용자 입력을 받아 AJAX를 통해 서버에 데이터를 전송하는 방법
- * RESTful 웹 서비스의 컨트롤러로 클라이언트(예: 웹 페이지에서의 AJAX 요청)로부터 사용자 정보를 받아서 처리하고,
- * 요청의 성공 여부를 ResponseDto를 통해 클라이언트에게 알려주는 역할
- * ResponseDto는 요청 처리 결과를 나타내는 'status' 필드와 결과 데이터를 담는 'data' 필드를 포함한다.
+ * Note :
+ * 38강(블로그 프로젝트) - 회원가입 하기 Ajax요청
+ * - jQuery를 사용하여 웹 페이지에서 사용자 입력을 받아 AJAX를 통해 서버에 데이터를 전송하는 방법
+ *   RESTful 웹 서비스의 컨트롤러로 클라이언트(예: 웹 페이지에서의 AJAX 요청)로부터 사용자 정보를 받아서 처리하고,
+ *   요청의 성공 여부를 ResponseDto를 통해 클라이언트에게 알려주는 역할
+ *   ResponseDto는 요청 처리 결과를 나타내는 'status' 필드와 결과 데이터를 담는 'data' 필드를 포함한다.
  * ======================================
  */
 
@@ -35,7 +34,7 @@ public class UserApiController {
      * UserService의 인스턴스가 자동으로 주입
      */
     @Autowired
-    private UserService userService; // DI
+    private UserService userService; // 의존성 주입(DI)
 
     /**
      * TODO: 회원가입시 throws Exception(try, catch) 테스트 해 보기

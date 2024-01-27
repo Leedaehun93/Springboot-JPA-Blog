@@ -1,5 +1,6 @@
 <!-- FileName : detail.jsp -->
 <!-- Note : 56강(블로그 프로젝트) - 글 상세보기 -->
+<!-- Note : 57강(블로그 프로젝트) - 글 삭제하기 -->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- header.jsp, footer.jsp include 상위 경로 다름 --%>
@@ -11,8 +12,14 @@
     <%-- button Start --%>
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
     <button id="btn-update" class="btn btn-warning">수정</button>
-    <button id="btn-delete" class="btn btn-danger">삭제</button>
-    <br/>
+    <c:if test="${board.user.id == principal.user.id}">
+        <button id="btn-delete" class="btn btn-danger">삭제</button>
+    </c:if>
+    <br/> <br/>
+    <div>
+        글 번호 :<span id="id"><i>${board.id} </i></span>
+        작성자 :<span><i>${board.user.username} </i></span>
+    </div>
     <br/>
     <%-- button End --%>
     <%-- title Start --%>

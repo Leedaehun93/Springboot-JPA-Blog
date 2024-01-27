@@ -3,6 +3,7 @@
  * FileName : board.js
  * Note :
  * 53강(블로그 프로젝트) - 글쓰기 완료
+ * 57강(블로그 프로젝트) - 글 삭제하기
  * ======================================
  */
 
@@ -18,6 +19,9 @@ let index = {
     init: function () {
         $("#btn-save").on("click", () => { // 버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
             this.save();
+        });
+        $("#btn-delete").on("click", () => { // 버튼이 클릭되면 this.deleteById 즉, index.delete 함수가 호출 된다.
+            this.deleteById();
         });
     },
     /**
@@ -43,11 +47,31 @@ let index = {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
             alert("글쓰기가 완료되었습니다."); // 화면 테스트 완료
             location.href = "/";
         }).fail(function (error) {
             // 요청이 실패하였을 때 실행된다.
             alert(JSON.stringify(error));
+        });
+    },    deleteById: function () {
+        var id = $("#id").text();
+
+        /**
+         * Ajax를 통해 서버에 글삭제 데이터를 비동기적으로 전송한다.
+         */
+        $.ajax({
+            type: "DELETE",
+            url: "/api/board/"+id,
+            dataType: "json"
+        }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
+            alert("삭제가 완료되었습니다."); // 화면 테스트 완료
+            location.href = "/";
+        }).fail(function (error) {
+            // 요청이 실패하였을 때 실행된다.
+            alert(JSON.stringify(error));
+
         });
     },
 } // end of index

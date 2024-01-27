@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class BoardController {
 
     @Autowired
-    private BoardService boardService; // DI
+    private BoardService boardService; // 의존성 주입(DI)
 
     /**
      * 루트 URL에 대한 GET 요청을 처리하고, 게시글 목록을 모델에 추가한 후 index 뷰를 반환한다.

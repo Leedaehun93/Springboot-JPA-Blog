@@ -59,7 +59,7 @@ public class DummyControllerTest {
      * 결과적으로, 코드의 결합도가 낮아지고 유지보수성이 향상된다.
      */
     @Autowired
-    private UserRepository userRepository; // DI 를 통해 UserRepository 인스턴스를 자동 주입 받는다.
+    private UserRepository userRepository; // 의존성 주입(DI)을 통해 UserRepository 인스턴스를 자동 주입 받는다.
 
     // http://localhost:8000/blog/dummy/join(요청)
     // http 의 body 에 username, password, email 데이터를 가지고(요청)

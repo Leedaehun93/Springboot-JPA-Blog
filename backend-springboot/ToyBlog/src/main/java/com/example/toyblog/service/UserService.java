@@ -37,7 +37,7 @@ public class UserService {
      * UserRepository의 인스턴스가 자동으로 주입
      */
     @Autowired
-    private UserRepository userRepository; // DI
+    private UserRepository userRepository; // 의존성 주입(DI)
 
     /**
      * 스프링의 의존성 주입(Dependency Injection, DI)을 위한 어노테이션
@@ -45,7 +45,7 @@ public class UserService {
      * BCryptPasswordEncoder의 인스턴스가 자동으로 주입
      */
     @Autowired
-    private BCryptPasswordEncoder encoder; // DI
+    private BCryptPasswordEncoder encoder; // 의존성 주입(DI)
 
     /**
      * 회원가입 메서드 : 사용자를 받아 회원가입 로직을 처리한다.

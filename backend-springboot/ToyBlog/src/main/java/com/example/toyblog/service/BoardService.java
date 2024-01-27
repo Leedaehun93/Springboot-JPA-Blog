@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.toyblog.model.User;
 import com.example.toyblog.model.Board;
 import com.example.toyblog.repository.BoardRepository;
+
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ import java.util.List;
  * 54강(블로그 프로젝트) - 글목록보기
  * 55강(블로그 프로젝트) - 글목록 페이징하기
  * 56강(블로그 프로젝트) - 글 상세보기
+ * 57강(블로그 프로젝트) - 글 삭제하기
  * ======================================
  */
 
@@ -35,17 +37,18 @@ public class BoardService {
      * BoardRepository의 인스턴스가 자동으로 주입된다.
      */
     @Autowired
-    private BoardRepository boardRepository; // DI
+    private BoardRepository boardRepository; // 의존성 주입(DI)
 
     /**
-     * 글쓰기 메서드 : 데이터를 받아 글쓰기 로직을 처리한다.
-     * 트랜잭션 관리를 통해 데이터베이스 작업의 일관성과 무결성을 보장한다.
+     * 사용자가 작성한 게시글 데이터를 받아 데이터베이스에 저장하는 로직을 처리하는 글쓰기 메서드
      *
-     * boardRepository.save(board)는 Board 객체를 데이터베이스에 저장하는 JPA 리포지토리 메서드이다.
-     * 이 메서드는 객체를 영구적으로 저장하거나 이미 존재하는 객체를 업데이트한다.
-     * @Transactional 어노테이션은 메서드 내의 모든 데이터베이스 작업을 하나의 트랜잭션으로 묶는다.
-     *
-     * @param board 게시글 객체
+     * @param board 사용자로부터 입력 받은 게시글 데이터. 게시글 제목과 내용을 포함한다.
+     * @param user  게시글 작성자 정보. 게시글과 연관된 사용자 객체.
+     * @Transactional 어노테이션을 사용하여 메서드 내의 모든 데이터베이스 작업을 하나의 트랜잭션으로 관리함으로써
+     * 데이터베이스 작업의 일관성과 무결성을 보장한다.
+     * <p>
+     * boardRepository.save(board)는 Board 객체를 데이터베이스에 영구적으로 저장하거나,
+     * 이미 존재하는 객체를 업데이트하는 JPA 리포지토리 메서드이다.
      */
     @Transactional
     public void 글쓰기(Board board, User user) { // title, content
@@ -58,10 +61,12 @@ public class BoardService {
      * 페이지네이션을 적용하여 게시글 목록을 조회하는 메서드
      * Pageable 객체를 매개변수로 받아, 지정된 페이지 크기와 정렬 순서에 따라 게시글 페이지를 반환한다.
      *
-     * @param pageable 페이지네이션 정보를 담고 있는 Pageable 객체
-     * @return 페이지네이션 적용된 게시글 목록이 담긴 Page<Board> 객체
+     * @param pageable 페이지네이션 정보를 담고 있는 Pageable 객체.
+     * @return 페이지네이션 적용된 게시글 목록이 담긴 Page<Board> 객체.
+     * @Transactional(readOnly = true)를 통해 데이터베이스 읽기 전용 트랜잭션으로 처리한다.
      */
-    public Page<Board> 글목록(Pageable pageable){
+    @Transactional(readOnly = true)
+    public Page<Board> 글목록(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
@@ -70,14 +75,31 @@ public class BoardService {
      * id에 해당하는 게시글이 존재하지 않을 경우, IllegalArgumentException 예외를 발생시킨다.
      *
      * @param id 조회하려는 게시글의 고유 식별자.
-     * @return id에 해당하는 Board 객체. 게시글이 존재하지 않을 경우 예외 발생
-     * @throws IllegalArgumentException 게시글이 존재하지 않을 때 발생하는 예외
+     * @return id에 해당하는 Board 객체. 게시글이 존재하지 않을 경우 예외 발생.
+     * @throws IllegalArgumentException 게시글을 찾을 수 없을 때 발생하는 예외.
+     * @Transactional(readOnly = true)로 데이터 조회 시 데이터베이스 변경을 방지한다.
      */
+    @Transactional(readOnly = true)
     public Board 글상세보기(int id) {
         return boardRepository.findById(id)
-                .orElseThrow(()->{
+                .orElseThrow(() -> {
                     return new IllegalArgumentException("글 상세보기 실패:아이디를 찾을 수 없습니다.");
                 });
+    }
+
+    /**
+     * 주어진 id에 해당하는 게시글을 삭제하는 메서드
+     * 메서드는 id를 매개변수로 받아 해당하는 게시글을 데이터베이스에서 삭제한다.
+     *
+     * @param id 삭제하려는 게시글의 고유 식별자.
+     * @Transactional을 사용하여 데이터 변경 작업을 트랜잭션으로 관리한다.
+     *
+     * TODO: 예외 발생 시 이를 명시하는 @throws 태그를 추가하는 것이 좋다.
+     */
+    @Transactional
+    public void 글삭제하기(int id) {
+//        System.out.println("글 삭제하기 : "+id); // 서버 콘솔에 로그 출력 // 테스트 완료
+        boardRepository.deleteById(id);
     }
 
 } // end of class

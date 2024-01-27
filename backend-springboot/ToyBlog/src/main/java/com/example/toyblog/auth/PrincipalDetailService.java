@@ -28,7 +28,7 @@ import com.example.toyblog.repository.UserRepository;
 public class PrincipalDetailService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository; // DI
+    private UserRepository userRepository; // 의존성 주입(DI)
 
     /**
      * 스프링 시큐리티가 로그인 과정 중에 사용자의 username과 password를 인터셉트(intercept) 할 때 호출되는 메서드이다.
