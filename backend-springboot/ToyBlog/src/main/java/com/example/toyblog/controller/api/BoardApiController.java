@@ -16,6 +16,7 @@ import com.example.toyblog.service.BoardService;
  * Note :
  * 53강(블로그 프로젝트) - 글쓰기 완료
  * 57강(블로그 프로젝트) - 글 삭제하기
+ * 58강(블로그 프로젝트) - 글 수정하기
  * ======================================
  */
 
@@ -62,4 +63,22 @@ public class BoardApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
     }
 
+    /**
+     * 주어진 id에 해당하는 게시글을 수정하는 API 엔드포인트
+     * @PathVariable을 통해 URL 경로에서 게시글의 id를 받아오고, @RequestBody를 통해 수정할 게시글 데이터를 받는다.
+     * boardService의 글수정하기 메서드를 호출하여 게시글을 수정한 후,
+     * 처리 결과를 ResponseDto 객체로 반환한다.
+     *
+     * @param id 수정하려는 게시글의 고유 식별자.
+     * @param board 클라이언트로부터 받은 수정할 게시글 데이터
+     * @return 처리 결과를 나타내는 ResponseDto 객체
+     */
+    @PutMapping("/api/board/{id}")
+    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
+//        System.out.println("BoardApiController : update : id : "+ id) ; // 서버 콘솔에 로그 출력 // 테스트 완료
+//        System.out.println("BoardApiController : update : board : "+ board.getTitle()); // 서버 콘솔에 로그 출력 // 테스트 완료
+//        System.out.println("BoardApiController : update : board : "+ board.getContent()); // 서버 콘솔에 로그 출력 // 테스트 완료
+        boardService.글수정하기(id, board); // 수정하려는 게시글 ID와 데이터를 서비스 계층에 전달
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
+    }
 } // end of class

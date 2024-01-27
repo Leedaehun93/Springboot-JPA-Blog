@@ -3,6 +3,8 @@
  * FileName : board.js
  * Note :
  * 53강(블로그 프로젝트) - 글쓰기 완료
+ * 57강(블로그 프로젝트) - 글 삭제하기
+ * 58강(블로그 프로젝트) - 글 수정하기
  * ======================================
  */
 
@@ -18,6 +20,12 @@ let index = {
     init: function () {
         $("#btn-save").on("click", () => { // 버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
             this.save();
+        });
+        $("#btn-delete").on("click", () => { // 버튼이 클릭되면 this.deleteById 즉, index.delete 함수가 호출 된다.
+            this.deleteById();
+        });
+        $("#btn-update").on("click", () => { // 버튼이 클릭되면 this.update 즉, index.update 함수가 호출 된다.
+            this.update();
         });
     },
     /**
@@ -43,13 +51,65 @@ let index = {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
             alert("글쓰기가 완료되었습니다."); // 화면 테스트 완료
             location.href = "/";
         }).fail(function (error) {
             // 요청이 실패하였을 때 실행된다.
             alert(JSON.stringify(error));
         });
+    }, deleteById: function () {
+        let id = $("#id").text();
+
+        /**
+         * Ajax를 통해 서버에 글삭제 데이터를 비동기적으로 전송한다.
+         */
+        $.ajax({
+            type: "DELETE",
+            url: "/api/board/" + id,
+            dataType: "json"
+        }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
+            alert("삭제가 완료되었습니다."); // 화면 테스트 완료
+            location.href = "/";
+        }).fail(function (error) {
+            // 요청이 실패하였을 때 실행된다.
+            alert(JSON.stringify(error));
+
+        });
+
+    }, update: function () {
+        let id = $("#id").val();
+
+        /**
+         * 사용자 입력 데이터를 JSON 객체로 만들어 서버에 전송한다.
+         */
+        let data = {
+            title: $("#title").val(),
+            content: $("#content").val()
+        };
+        // console.log(id); // 서버 콘솔에 로그 출력 // 테스트 완료
+        // console.log(data); // 서버 콘솔에 로그 출력 // 테스트 완료
+        /**
+         * Ajax를 통해 서버에 글이 수정된 데이터를 비동기적으로 전송한다.
+         */
+        $.ajax({
+            type: "PUT",
+            url: "/api/board/" + id,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
+            alert("글 수정이 완료되었습니다."); // 화면 테스트 완료
+            location.href = "/";
+        }).fail(function (error) {
+            // 요청이 실패하였을 때 실행된다.
+            alert(JSON.stringify(error));
+        });
     },
+
+
 } // end of index
 /**
  * init 함수는 페이지가 로드되었을 때 호출된다.
