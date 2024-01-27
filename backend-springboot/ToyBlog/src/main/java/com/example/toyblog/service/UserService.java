@@ -3,6 +3,7 @@ package com.example.toyblog.service;
 import com.example.toyblog.model.RoleType;
 import com.example.toyblog.model.User;
 import com.example.toyblog.repository.UserRepository;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * - 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
  * 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
  * - 회원가입 메서드 : 사용자를 받아 회원가입 로직을 처리한다.
+ * 60강(블로그 프로젝트) - 회원수정 1
  * ======================================
  */
 
@@ -82,5 +84,32 @@ public class UserService {
 //    public User 로그인(User user) {
 //        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 //    }
+
+
+    /**
+     * 주어진 사용자 정보로 기존 회원 정보를 수정하는 메서드
+     * 이 메서드는 트랜잭션 내에서 실행되며, JPA의 영속성 컨텍스트를 통해 사용자 정보의 영속화와 더티 체킹을 관리한다.
+     * findById를 통해 사용자 엔티티를 조회하고 영속화하여, 변경 감지 기능이 동작하도록 한다.
+     * 사용자 엔티티가 영속화된 상태에서 필드를 수정하면, 트랜잭션이 종료될 때 변경 내용이 데이터베이스에 자동으로 반영된다.
+     *
+     * @param user 수정할 사용자 정보를 담고 있는 엔티티. ID를 통해 기존 사용자를 찾고, 비밀번호와 이메일을 수정한다.
+     * @throws IllegalIdentifierException 사용자를 찾지 못한 경우 발생하는 사용자 정의 예외를 발생시킨다.
+     */
+    @Transactional
+    public void 회원수정(User user) {
+        // findById를 통해 영속화할 사용자 객체를 조회한다.
+        User persistentUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new IllegalIdentifierException("회원 찾기 실패"));
+
+        // 사용자로부터 받은 비밀번호를 암호화하여 설정한다.
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        persistentUser.setPassword(encPassword);
+
+        // 이메일 정보를 업데이트한다.
+        persistentUser.setEmail(user.getEmail());
+        // 트랜잭션 종료 시 변경 감지가 발생하며, 변경된 내용이 데이터베이스에 자동으로 반영된다.
+        // 즉, 회원수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = commit
+    }
 
 } // end of class

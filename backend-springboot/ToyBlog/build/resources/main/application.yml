@@ -48,7 +48,7 @@ spring:
       # use-new-id-generator-mappings: false : JPA의 기본 전략을 따라 가지 않는다.
       use-new-id-generator-mappings: false
     # show-sql : true : 콘솔 창에 화면을 띄워 준다.
-    show-sql: true
+#    show-sql: true
     # properties hibernate.format_sql: true : 콘솔 창에 한 줄이 아닌 정렬하여 띄어서 보여 준다.
     properties:
       hibernate.format_sql: true

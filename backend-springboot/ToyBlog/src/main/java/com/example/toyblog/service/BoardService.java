@@ -124,7 +124,7 @@ public class BoardService {
         // Persistence 영속화(객체를 영구적으로 저장) 완료
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
-        // 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹(변경된 사항이 데이터베이스에 자동 반영됨) 자동 업데이트가 된다.dbflush
+        // 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티 체킹(변경된 사항이 데이터베이스에 자동 반영됨) 자동 업데이트가 된다.dbflush
     }
 
 } // end of class

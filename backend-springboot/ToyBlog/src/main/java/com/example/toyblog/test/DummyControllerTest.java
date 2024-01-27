@@ -39,7 +39,7 @@ import java.util.function.Supplier;
  * 27강(블로그 프로젝트) - 전체 select 및 paging 테스트
  * - 전체 조회(여러 건의 데이터)
  * - paging 처리를 위한 2가지 방법 : List<User> 반환 타입과 Page<User> 반환 타입
- * 28~29강(블로그 프로젝트) - update 테스트, 영속성 컨텍스트와 더티체킹
+ * 28~29강(블로그 프로젝트) - update 테스트, 영속성 컨텍스트와 더티 체킹
  * - update 사용 방법 1 : userRepository.save(user);
  * - update 사용 방법 2 : @Transactional 어노테이션과 Dirty Checking(더티 체킹)
  * 30강(블로그 프로젝트) - 삭제하기 테스트
@@ -222,8 +222,8 @@ public class DummyControllerTest {
      * 어떤 방식을 사용할지는 애플리케이션의 요구 사항, 개발자의 선호도,
      * 그리고 특정 상황에 따라 달라질 수 있다.
      * userRepository.save(user) 는 더 명시적이고 직관적인 방식을 제공하는 반면,
-     * @Transactional 과 더티 체킹은 성능상의 이점과 코드의 간결성을 제공한다.
-     * @Transactional : JPA 의 더티 체킹(dirty checking) 기능이 활성화되어, 엔티티의 변경 사항이 자동으로 감지하여 데이터베이스에 반영된다.
+     * @Transactional과 더티 체킹은 성능상의 이점과 코드의 간결성을 제공한다.
+     * @Transactional : JPA의 더티 체킹(dirty checking) 기능이 활성화되어, 엔티티의 변경 사항이 자동으로 감지하여 데이터베이스에 반영된다.
      * 트랜잭션이 성공적으로 완료되면 데이터베이스 변경 사항이 커밋되고, 예외가 발생하면 롤백한다.
      */
     // http://localhost:8000/blog/dummy/user/1

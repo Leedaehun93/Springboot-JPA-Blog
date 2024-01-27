@@ -10,6 +10,7 @@
  * 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
  * 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
  * 53강(블로그 프로젝트) - 글쓰기 완료
+ * 60강(블로그 프로젝트) - 회원수정 1
  * ======================================
  */
 
@@ -25,6 +26,9 @@ let index = {
     init: function () {
         $("#btn-save").on("click", () => { // 버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
             this.save();
+        });
+        $("#btn-update").on("click", () => { // 버튼이 클릭되면 this.update 즉, index.update 함수가 호출 된다.
+            this.update();
         });
         /**
          * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
@@ -42,7 +46,7 @@ let index = {
         /**
          * 사용자 입력 데이터를 JSON 객체로 만들어 서버에 전송한다.
          */
-        // alert("save 함수 호출"); // 화면 테스트 완료
+            // alert("save 함수 호출"); // 화면 테스트 완료
         let data = {
                 username: $("#username").val(),
                 password: $("#password").val(),
@@ -81,8 +85,41 @@ let index = {
             // 요청이 실패하였을 때 실행된다.
             alert(JSON.stringify(error)); // 실패 응답을 문자열로 변환하여 알려준다.
         });
+    }, update: function () {
+        /**
+         * 사용자 입력 데이터를 JSON 객체로 만들어 서버에 전송한다.
+         * username은 수정하지 않기 때문에 password와 email만 받는다.
+         * 사용자를 식별하기 위한 username 대신 id를 사용하며,
+         * 이 id는 숨겨진 input 필드에서 가져온다.
+         * input type="hidden"의 id="id"는 현재 사용자의 고유 ID를 가지고 있으며,
+         * 이를 통해 서버가 어떤 사용자의 데이터를 업데이트해야 하는지 식별한다.
+         */
+        let data = {
+                id: $("#id").val(),
+                password: $("#password").val(),
+                email: $("#email").val()
+            }
+        // console.log(data); // console에 입력 받은 데이터가 들어오는지 테스트 완료
+        /**
+         * Ajax를 통해 서버에 회원정보 수정 데이터를 비동기적으로 전송한다.
+         * 전송할 데이터는 JSON 형태로 인코딩되며, 서버는 JSON 응답을 반환해야 한다.
+         */
+        $.ajax({
+            type: "PUT",  // HTTP PUT 메서드를 사용하여 서버에 데이터를 전송
+            url: "/user", // 요청을 보낼 서버의 URL을 지정합니다.
+            data: JSON.stringify(data), // 전송할 데이터를 JSON 문자열로 변환한다. data는 서버에 전송될 객체이다.
+            contentType: "application/json; charset=utf-8", // 요청의 Content-Type 헤더를 설정한다.(body 데이터가 어떤 타입인지(MIME) 알려준다.)
+            dataType: "json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 문자열로 들어오고 json 타입이라면 => javascript 오브젝트로 들어온다. dataType을 생략 했을 경우 jquery가 MIME타입을 확인하고 자동으로 결정한다.
+        }).done(function (resp) {
+            alert("회원수정이 완료되었습니다."); // 화면 테스트 완료
+            // alert(resp); // 화면 테스트 완료
+            location.href="/";
+            // console.log(resp); // console에 입력 받은 데이터가 들어오는지 테스트 완료
+        }).fail(function (error) {
+            // 요청이 실패하였을 때 실행된다.
+            alert(JSON.stringify(error)); // 실패 응답을 문자열로 변환하여 알려준다.
+        });
     },
-
     /**
      * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
      *  login 함수 : 사용자가 입력한 데이터를 가져와서 JSON 객체로 변환한다. $.ajax를 사용하여 서버에 POST 요청을 보내고 JSON 형식으로 전송된다.
