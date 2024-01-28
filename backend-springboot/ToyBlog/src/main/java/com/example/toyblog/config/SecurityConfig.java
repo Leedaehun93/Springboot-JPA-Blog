@@ -29,6 +29,14 @@ import org.springframework.security.web.SecurityFilterChain;
  *   이렇게 등록된 인코더는 애플리케이션 전반에 걸쳐 비밀번호 암호화에 사용된다.
  * 52강(블로그 프로젝트) - 스프링 시큐리티 로그인
  * - 스프링 시큐리티의 인증 매니저를 구성하여 로그인 프로세스를 이용한다.
+ * 61강(블로그 프로젝트) - 회원수정 2
+ * - 회원 정보 수정 이후 세션 정보를 갱신하기 위해 AuthenticationManager로
+ *   새로운 인증 토큰을 생성하고 SecurityContext에 설정하여 현재 세션을 업데이트함.
+ * - 회원 수정 로직 실행 시 트랜잭션이 종료되면서 데이터베이스와 세션의 일관성 유지.
+ * - TODO: 아래 내용과 동일 확인해 보기
+ *    스프링 시큐리티 5.7.1 버전부터 접근 방식 업데이트 됨
+ * - 49강(블로그 프로젝트) - 스프링 시큐리티 기반 로그인 페이지 커스터마이징 구성 설정 방식 변경
+ * - 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
  * ======================================
  */
 
@@ -39,8 +47,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     /**
-     * AuthenticationManager를 스프링의 빈으로 등록한다.
+     * 스프링 시큐리티 5.7.1 버전부터 접근 방식 업데이트 됨
+     *
      * 인증을 위해 필요한 컴포넌트로, 스프링 시큐리티의 인증 과정에서 중앙 역할을 담당한다.
+     * 스프링 시큐리티의 AuthenticationManager 빈을 설정한다.
+     * 스프링 시큐리티 5.7.1 이후 버전에서는 WebSecurityConfigurerAdapter의 상속 없이
+     * AuthenticationManager를 빈으로 직접 등록할 수 있다. 이를 통해 인증 프로세스를 관리하는
+     * AuthenticationManager를 얻을 수 있다.
      *
      * @param authenticationConfiguration 스프링 시큐리티의 기본 인증 구성
      * @return 스프링 시큐리티의 AuthenticationManager 빈
@@ -93,7 +106,6 @@ public class SecurityConfig {
                 .loginProcessingUrl("/auth/loginProc") // 스프링 시큐리티가 해당 주소로 요청 오는 로그인을 가로채서 대신 로그인을 해준다.
                 .defaultSuccessUrl("/") // 정상적인 요청일 때 이 URL로 리다이렉트한다.
         );
-
         return http.build();
     } // end of configure
 

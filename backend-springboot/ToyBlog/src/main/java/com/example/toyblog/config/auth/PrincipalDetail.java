@@ -1,4 +1,4 @@
-package com.example.toyblog.auth;
+package com.example.toyblog.config.auth;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
