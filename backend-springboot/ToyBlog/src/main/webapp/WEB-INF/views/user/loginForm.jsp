@@ -5,6 +5,7 @@
 <!-- Note : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기 -->
 <!-- Note : 52강(블로그 프로젝트) - 스프링 시큐리티 로그인 -->
 <!-- Note : 53강(블로그 프로젝트) - 글쓰기 완료 -->
+<!-- Note : 64강(블로그 프로젝트) - 카카오 로그인 엑세스토큰 받기 -->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -36,6 +37,7 @@
 
         <%-- 로그인 button Start --%>
         <button id="btn-login" class="btn btn-primary">로그인</button>
+            <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a86f4b070d222923b2df1bdbd8c805c8&redirect_uri=http://localhost:8000/auth/kakao/callback"><img height="38px" src="/image/kakao_login_button.png"/></a>
         <%-- 로그인 button End --%>
         <br/>
     </form>
