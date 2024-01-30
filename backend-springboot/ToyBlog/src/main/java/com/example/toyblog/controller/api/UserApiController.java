@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
  * - 로그인된 사용자의 패스워드와 이메일 수정 기능을 구현
  * - 회원수정 로직은 트랜잭션 내에서 실행되며, 서비스 종료 시 트랜잭션 종료와 함께 자동 커밋됨
  * - 세션 정보 갱신 로직을 추가하여 사용자가 재접속하지 않아도 수정된 정보가 반영되도록 개선할 예정.
- *   다음 강의에서 세션 정보 갱신 방법에 대해 다룰 예정.
+ * 다음 강의에서 세션 정보 갱신 방법에 대해 다룰 예정.
  * 61강(블로그 프로젝트) - 회원수정 2
  * - 회원 정보 수정 이후 세션 정보를 갱신하기 위해 AuthenticationManager로
- *   새로운 인증 토큰을 생성하고 SecurityContext에 설정하여 현재 세션을 업데이트함.
+ *     새로운 인증 토큰을 생성하고 SecurityContext에 설정하여 현재 세션을 업데이트함.
  * - 회원 수정 로직 실행 시 트랜잭션이 종료되면서 데이터베이스와 세션의 일관성 유지.
  * ======================================
  */
@@ -86,16 +86,16 @@ public class UserApiController {
     /**
      * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
      */
-// Spring Security 사용으로 전통적인 로그인 방식은 주석 처리
-//    @PostMapping("/api/user/login")
-//    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
-//        System.out.println("UserApiController : login호출됨");
-//        User principal = userService.로그인(user); // principal(접근주체)
-//        if (principal != null) {
-//            session.setAttribute("principal", principal);
-//        }
-//        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
-//    }
+/* Spring Security 사용으로 전통적인 로그인 방식은 주석 처리
+    @PostMapping("/api/user/login")
+    public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
+        System.out.println("UserApiController : login호출됨");
+        User principal = userService.로그인(user); // principal(접근주체)
+        if (principal != null) {
+            session.setAttribute("principal", principal);
+        }
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
+    }*/
 
     /**
      * 사용자의 정보를 수정하는 API 엔드포인트
@@ -109,11 +109,13 @@ public class UserApiController {
     @PutMapping("/user")
     public ResponseDto<Integer> update(@RequestBody User user) {
         userService.회원수정(user); // 서비스 계층에서 회원 정보 수정 로직을 수행
-        // 여기서는 트랜잭션이 종료되기 때문에 DB에 값은 변경이 됐음
-        //  하지만 세션 값은 변경되지 않은 상태이기 대문에 우리가 직접 세션 값을 변경
-        // 회원 정보 수정 후, 세션 정보 업데이트를 위해 AuthenticationManager를 사용하여
-        // 새로운 인증 정보(토큰)를 생성하고 현재 세션의 인증 정보를 업데이트함
-        // 이를 통해 사용자가 로그아웃하고 다시 로그인할 필요 없이 변경된 정보를 바로 사용할 수 있음
+        /**
+         * 여기서는 트랜잭션이 종료되기 때문에 DB에 값은 변경이 됐음
+         *  하지만 세션 값은 변경되지 않은 상태이기 때문에 우리가 직접 세션 값을 변경
+         *  회원 정보 수정 후, 세션 정보 업데이트를 위해 AuthenticationManager를 사용하여
+         *  새로운 인증 정보(토큰)를 생성하고 현재 세션의 인증 정보를 업데이트함
+         *  이를 통해 사용자가 로그아웃하고 다시 로그인할 필요 없이 변경된 정보를 바로 사용할 수 있음
+         */
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         // 생성된 인증 토큰을 SecurityContext에 설정하여 현재 세션의 인증 정보를 업데이트함
         SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -20,37 +20,40 @@ import java.sql.Timestamp;
  *   데이터베이스 매핑: Entity는 데이터베이스 테이블과 직접 매핑되는 반면, DTO는 매핑이 되지 않는다.
  *   ORM(Object-Relational Mapping) -> JAVA(다른 언어) Object(객체) -> 테이블로 매핑해주는 기술이다.
  *   이를 통해 객체의 속성은 테이블의 컬럼과 연결되며, 객체의 인스턴스(또는 객체)는 테이블의 행에 해당하게 한다.
+ *   65강(블로그 프로젝트) - 카카오 로그인 서비스 구현 완료
+ * - 이메일 필드 수정
+ *    카카오 API를 통해 가져온 사용자 정보 중에서 이메일 정보는 사용자의 선택적 동의가 필요한 보안 정책에 따라 데이터를 받을 수
+ *    없어 email null을 허용으로 변경해서 테스트
+ *  - private String oauth; 필드 추가 oauth 값에 "kakao" 있으면 비밀번호 수정 할 수 가 없음.
  * ======================================
  */
 
-@Builder
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 /**
  * @Entity = ORM(Object-Relational Mapping) -> JAVA(다른 언어) Object(객체) -> 테이블로 매핑해주는 기술이다.
  *  User 클래스가 MySQL에 테이블이 생성이 된다. = User 엔티티 클래스는 데이터베이스의 User 테이블과 매핑된다. 라고 표현 할 수 있다.
  * @Entity 어노테이션을 통해 JPA가 User 클래스를 데이터베이스 테이블 컬럼과 연결하고,
  * 이 클래스는 사용자 데이터를 저장하며, 객체의 인스턴스는 테이블의 한 행(row)에 해당하게 된다.
+ *
+ * @DynamicInsert 사용을 하게 되면 insert 시에 null인 필드를 제외해 준다.
  */
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-
-/**
- * @DynamicInsert 사용을 하게 되면 insert 시에 null인 필드를 제외 시켜준다.
- */
 // @DynamicInsert
 public class User {
 
     /**
-     * Primary key 정의 : private int id; 이 부분을 엔티티 클래스 내에서 기본 키를 정의합니다.
-     */
-    @Id
-    /**
+     * @Id : Primary key 정의 : private int id; 이 부분을 엔티티 클래스 내에서 기본 키를 정의한다.
+     *
      * @GeneratedValue(strategy = GenerationType.IDENTITY) 어노테이션은 (Java Persistence API)에서 사용하는 어노테이션으로
      * JPA가 해당 엔티티의 id필드에 대해 데이터베이스의 자동 증가(auto_increment) 기능을 사용하여 값을 자동으로
      * 할당하도록 지시하여 데이터베이스가 새로운 레코드를 삽입할 때마다 고유한 키 값을 자동으로 생성해 주게 지정한다.
      * 즉, 현재 프로젝트에서 연결된 DB의 넘버링 전략(데이터 베이스의 자체적인 자동 증가 기능을 이용하여 기본 키값을 생성)을 따라간다.
      */
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // GenerationType.IDENTITY: 데이터베이스가 id 값을 자동으로 관리한다.
     // Oracle에서는 시퀀스를, MySQL에서는 auto_increment를 사용한다.
@@ -73,9 +76,13 @@ public class User {
     private String password;  // 패스워드
 
     /**
-     * 이메일 필드 : null을 허용하지 않으며, 최대 길이는 50자
+     * 이메일 필드 :
+     *  -> 카카오 API를 통해 가져온 사용자 정보 중에서 이메일 정보는
+     *      사용자의 선택적 동의가 필요한 보안 정책에 따라 데이터를 받을 수
+     *      없어 email null을 허용으로 변경해서 테스트
      */
-    @Column(nullable = false, length = 50)
+    // null을 허용하지 않으며, 최대 길이는 50자
+    @Column(nullable = true, length = 50)
     private String email; // 이메일
 
     /**
@@ -93,6 +100,8 @@ public class User {
      */
     @Enumerated(EnumType.STRING) // 데이터베이스에서는 RoleType 자체를 인식할 수 없기 때문에, enum을 문자열 형태로 변환
     private RoleType role; // enum 열거형을 생성하여 role 필드에 허용된 값들을 USER 와 ADMIN 으로 제한한다.
+
+    private String oauth; // kakao, google
 
     /** @CreationTimestamp :
      *   생성 시간 추적 :

@@ -37,7 +37,8 @@
 
         <%-- 로그인 button Start --%>
         <button id="btn-login" class="btn btn-primary">로그인</button>
-            <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a86f4b070d222923b2df1bdbd8c805c8&redirect_uri=http://localhost:8000/auth/kakao/callback"><img height="38px" src="/image/kakao_login_button.png"/></a>
+            <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a86f4b070d222923b2df1bdbd8c805c8&redirect_uri=http://localhost:8000/auth/kakao/callback">
+                <img height="38px" src="/image/kakao_login_button.png"/></a>
         <%-- 로그인 button End --%>
         <br/>
     </form>
