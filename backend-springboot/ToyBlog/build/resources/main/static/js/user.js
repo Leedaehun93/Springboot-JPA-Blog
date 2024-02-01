@@ -47,9 +47,9 @@ let index = {
         /**
          * Note : 49강 - 스프링 시큐리티 기반 로그인 페이지 커스터마이징으로 기존 기본 로그인 방식은 주석 처리하여 참조용으로 보존
          */
-        // $("#btn-login").on("click", () => { //버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
+/*        // $("#btn-login").on("click", () => { //버튼이 클릭되면 this.save 즉, index.save 함수가 호출 된다.
         //     this.login();
-        // });
+        // });*/
     },
     /**
      * save 함수 : 사용자가 입력한 데이터를 가져와서 JSON 객체로 변환한다. $.ajax를 사용하여 서버에 POST 요청을 보내고 JSON 형식으로 전송된다.
@@ -148,16 +148,16 @@ let index = {
      * 1) .done 성공 처리 로직 : 요청이 성공하면 사용자 계정으로 로그인이 되어 다른 페이지(/blog)로 리디렉션하고
      * 2) .fail 오류 처리 로직 : 실패할 경우, 오류 메시지를 표시한다.
      */
-    // login: function () {
+/*    // login: function () {
     //     let data = {
     //         username: $("#username").val(),
     //         password: $("#password").val()
     //     }
     //
-    //     /**
+    //     /!**
     //      * ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
     //      * ajax 호출 시 default가 비동기 호출로 진행된다.
-    //      */
+    //      *!/
     //     $.ajax({
     //         type: "POST", // type: GET type는 계정 정보가 남기 때문에 POST 방식을 선택한다.
     //         url: "/api/user/login",
@@ -172,7 +172,7 @@ let index = {
     //     }).fail(function (error) {
     //         alert(JSON.stringify(error));
     //     });
-    // }
+    // }*/
 } // end of index
 /**
  * init 함수는 페이지가 로드되었을 때 호출된다.
