@@ -1,5 +1,6 @@
 package com.example.toyblog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,8 @@ import java.util.List;
  * 53강(블로그 프로젝트) - 글쓰기 완료
  * - summernote 스크립트를 사용하여 글쓰기 기능을 구현
  * - 조회수 별도 지정으로 @ColumnDefault("0") 제거
+ * 67강(블로그 프로젝트) - 댓글 목록 뿌리기
+ * - 댓글 Reply 무한참조방지 (엔티티 간 순환 참조를 방지) 중 @JsonIgnoreProperties 로 코드 구현
  * ======================================
  */
 @Builder
@@ -74,8 +77,14 @@ public class Board {
      *  이는 Reply 테이블에 'board'라는 필드가 외래 키(FK)로 존재함을 의미하며,
      *  Board 엔티티에는 이 관계에 대응하는 별도의 컬럼이 생성되지 않는다.
      *  FetchType.EAGER를 사용하여 Board 엔티티를 로딩할 때 연관된 Reply 엔티티들도 함께 로딩된다.
+     *
+     * @JsonIgnoreProperties({"board"}) :
+     *  Reply 엔티티에서 JSON 변환 시 'board' 필드를 무시한다. 이는 엔티티 간 순환 참조를 방지하고,
+     *  JSON 결과를 깔끔하게 유지하기 위함이다. Reply 엔티티를 JSON으로 직렬화할 때
+     *  Board 객체의 정보를 포함하지 않으므로, 직렬화된 JSON에서 Board 정보를 제외할 수 있다.
      */
     @OneToMany(mappedBy="board", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"board"})
     private List<Reply> replies; // 한 개의 Board 에는 여러 개의 Reply 가 있을 수 있다.
 
     /**
