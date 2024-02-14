@@ -42,11 +42,11 @@
 <%-- Bootstrap-4 ed Form End --%>
 
 <%-- 스크립트 script Start --%>
-<%-- TODO: [오류 해결] 문제 : "회원가입버튼" 클릭 후 동작하지 않음(Include omitted for the script reference)
+<%-- TODO: [오류 해결] 문제 : "회원가입버튼" 클릭 후 동작하지 않음(Include omitted for the script reference)"
        - 참고 : 50강(블로그 프로젝트) - 비밀번호 해시 후 회원가입하기
        - 원인 : user.js 스크립트 로드 문제 발생.
-       - 해결 : 버튼 클릭 이벤트를 처리하는 로직을 포함하고 있으나 비활성화 상태(주석 처리) 로 인한 이슈 발생으로 주석 해제, 충동로 인해 사용자 정의 스크립트 위치를 footer.jsp -> joinForm.jsp 위치로 변경함
-              나머지 스크립트는 header.jsp <head> 태스 하단에 위치(스크립트 로딩 순서 중요)
+       - 해결 : 버튼 클릭 이벤트를 처리하는 로직을 포함하고 있으나 비활성화 상태(주석 처리) 로 인한 이슈 발생으로 주석 해제, 충동으로 인해 사용자 정의 스크립트 위치를 footer.jsp -> joinForm.jsp 위치로 변경함
+              나머지 스크립트는 header.jsp <head> 태그 하단에 위치(스크립트 로딩 순서 중요)
 --%>
 <!-- 사용자 정의 user 스크립트 -->
 <script src="/js/user.js"></script>

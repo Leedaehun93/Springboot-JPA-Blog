@@ -21,6 +21,7 @@ import java.util.List;
  * - 조회수 별도 지정으로 @ColumnDefault("0") 제거
  * 67강(블로그 프로젝트) - 댓글 목록 뿌리기
  * - 댓글 Reply 무한참조방지 (엔티티 간 순환 참조를 방지) 중 @JsonIgnoreProperties 로 코드 구현
+ * 68강(블로그 프로젝트) - 댓글 작성하기
  * ======================================
  */
 @Builder
@@ -82,10 +83,14 @@ public class Board {
      *  Reply 엔티티에서 JSON 변환 시 'board' 필드를 무시한다. 이는 엔티티 간 순환 참조를 방지하고,
      *  JSON 결과를 깔끔하게 유지하기 위함이다. Reply 엔티티를 JSON으로 직렬화할 때
      *  Board 객체의 정보를 포함하지 않으므로, 직렬화된 JSON에서 Board 정보를 제외할 수 있다.
+     *
+     *  @OrderBy("id desc") :
+     *  Reply 댓글의 게시 글을 id로 내림차순으로 정렬
      */
     @OneToMany(mappedBy="board", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"board"})
-    private List<Reply> replies; // 한 개의 Board 에는 여러 개의 Reply 가 있을 수 있다.
+    @OrderBy("id desc")
+    private List<Reply> replys; // 한 개의 Board 에는 여러 개의 Reply 가 있을 수 있다.
 
     /**
      * createDate 필드는 엔티티가 데이터베이스에 저장될 때의 현재 시간을 자동으로 기록합니다.

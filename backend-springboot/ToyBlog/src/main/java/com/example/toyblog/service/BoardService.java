@@ -1,5 +1,7 @@
 package com.example.toyblog.service;
 
+import com.example.toyblog.model.Reply;
+import com.example.toyblog.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import java.util.List;
  * 57강(블로그 프로젝트) - 글 삭제하기
  * 58강(블로그 프로젝트) - 글 수정하기
  * 67강(블로그 프로젝트) - 댓글 목록 뿌리기
+ * 68강(블로그 프로젝트) - 댓글 작성하기
  * ======================================
  */
 
@@ -36,10 +39,15 @@ public class BoardService {
     /**
      * 스프링의 의존성 주입(Dependency Injection, DI)을 위한 어노테이션
      * 게시글 데이터 접근을 위한 JPA 리포지토리
+     *
      * BoardRepository의 인스턴스가 자동으로 주입된다.
+     * ReplyRepository의 인스턴스가 자동으로 주입된다.
      */
     @Autowired
     private BoardRepository boardRepository; // 의존성 주입(DI)
+
+    @Autowired
+    private ReplyRepository replyRepository; // 의존성 주입(DI)
 
     /**
      * 사용자가 작성한 게시글 데이터를 받아 데이터베이스에 저장하는 로직을 처리하는 글쓰기 메서드
@@ -108,11 +116,11 @@ public class BoardService {
      * 주어진 id에 해당하는 게시글을 수정하는 메서드
      * 메서드는 id와 수정할 게시글 정보(requestBoard)를 매개변수로 받아 해당 게시글을 데이터베이스에서 찾아 수정한다.
      *
-     * @param id 수정하려는 게시글의 고유 식별자
+     * @param id           수정하려는 게시글의 고유 식별자
      * @param requestBoard 클라이언트로부터 받은 수정할 게시글 정보
      * @Transactional을 사용하여 데이터 변경 작업을 트랜잭션으로 관리한다.
      * 글 찾기에 실패할 경우 IllegalArgumentException 예외를 발생시킨다.
-     *
+     * <p>
      * JPA의 영속성 컨텍스트에 의해 관리되는 board 객체의 상태를 변경한다.
      * 이 메서드 실행 시 발생하는 변경은 '더티 체킹(Dirty Checking)'에 의해 데이터베이스에 자동으로 반영된다.
      */
@@ -126,6 +134,21 @@ public class BoardService {
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
         // 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티 체킹(변경된 사항이 데이터베이스에 자동 반영됨) 자동 업데이트가 된다.dbflush
+    }
+
+    @Transactional
+    public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+        // 게시글을 데이터베이스에서 찾고, 없을 경우 예외를 발생시킨다.
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
+                }); // Persistence 영속화(객체를 영구적으로 저장) 완료
+        // 댓글 객체에 사용자와 게시글 정보를 설정한다.
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+
+        // 댓글을 데이터베이스에 저장한다.
+        replyRepository.save(requestReply);
     }
 
 } // end of class

@@ -4,6 +4,7 @@
 <!-- Note : 58강(블로그 프로젝트) - 글 수정하기 -->
 <!-- Note : 66강(블로그 프로젝트) - 댓글 디자인하기 -->
 <!-- Note : 67강(블로그 프로젝트) - 댓글 목록 뿌리기 -->
+<!-- Note : 68강(블로그 프로젝트) - 댓글 작성하기 -->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- header.jsp, footer.jsp include 상위 경로 다름 --%>
@@ -43,10 +44,15 @@
     <%-- 댓글 Start --%>
     <div>
         <div class="card">
-            <div class="card-body"><textarea class="from-control" rows="1"></textarea></div>
-            <div class="card-footer">
-                <button class="btn btn-primary">등록</button>
-            </div>
+            <form>
+                <input type="hidden" id="boardId" value="${board.id}"/>
+                <div class="card-body">
+                    <textarea id="reply-content" class="from-control" rows="1"></textarea>
+                </div>
+                <div class="card-footer">
+                    <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+                </div>
+            </form>
         </div>
     </div>
     <br/>
@@ -54,13 +60,20 @@
     <div>
         <div class="card">
             <div class="card-header">댓글 리스트</div>
-            <%--  HTML  파일에서 개발자가 자신이 생성한 ID에 대해 특별한 네이밍 규칙으로는 ID에는 '--' (하이픈 두 개)를 사용하여 가독성을 높이는 방법이 있다. --%>
+            <%-- HTML 파일에서 개발자가 자신이 생성한 ID에 대해 특별한 네이밍 규칙으로는 ID에는 '--' (하이픈 두 개)를 사용하여 가독성을 높이는 방법이 있다. --%>
             <ul id="reply--box" class="list-group">
-                <c:forEach var="reply" items="${board.replies}">
-                    <li id="reply--1" class="list-group-item d-flex justify-content-between">
-                        <div>댓글 내용입니다!!</div>
-                        <div class=" d-flex">
+                <!-- 댓글을 반복하여 리스트로 표시. 서버로부터 전달받은 댓글 목록(board.replys)을 순회한다. -->
+                <c:forEach var="reply" items="${board.replys}">
+                    <!-- 각 댓글에 고유 ID(reply.id)를 할당하여 DOM에서 쉽게 식별할 수 있게 함. -->
+                    <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
+                        <!-- 댓글 내용 테스트를 위한 하드 코딩 -->
+                            <%--  <div>댓글 내용입니다!!</div> --%>
+                        <%-- 서버로부터 받은 각 댓글의 내용을 웹 페이지에 표시 --%>
+                        <div>${reply.content}</div>
+                        <div class="d-flex">
+                            <!-- 작성자 정보 표시 -->
                             <div class="font-italic">작성자 : ${reply.user.username} &nbsp;</div>
+                            <!-- 댓글 삭제 버튼 -->
                             <button class="badge">삭제</button>
                         </div>
                     </li>
