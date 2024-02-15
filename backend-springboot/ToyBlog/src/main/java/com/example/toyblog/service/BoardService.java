@@ -3,6 +3,7 @@ package com.example.toyblog.service;
 import com.example.toyblog.dto.ReplySaveRequestDto;
 import com.example.toyblog.repository.ReplyRepository;
 import com.example.toyblog.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import com.example.toyblog.repository.BoardRepository;
  * 68강(블로그 프로젝트) - 댓글 작성하기
  * 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기
  * 70강(블로그 프로젝트) - 댓글 작성시 네이티브 쿼리 사용해보기
+ * 71강(블로그 프로젝트) - @Autowired의 원리
  * ======================================
  */
 
@@ -34,25 +36,28 @@ import com.example.toyblog.repository.BoardRepository;
  * BoardService 클래스는 게시판 관련 비즈니스 로직을 처리한다.
  * BoardRepository와 연결되어 게시글 데이터를 관리하며 데이터베이스와의 상호작용을 담당한다.
  */
+/**
+ * BoardService 클래스는 게시판 관련 비즈니스 로직을 처리한다.
+ * BoardRepository와 연결되어 게시글 데이터를 관리하며 데이터베이스와의 상호작용을 담당한다.
+ * 이 클래스는 생성자 주입을 통해 의존성을 주입받는다.
+ *
+ * 변경 이력:
+ * - 이전 버전(70강 이전): @Autowired 어노테이션을 사용하여 필드 주입 방식으로 의존성을 관리했다.
+ * - 현재 버전(71강): @RequiredArgsConstructor를 사용하여 생성자 주입 방식으로 의존성을 관리한다.
+ *   이로 인해 코드의 명시성이 향상되고, 의존성 주입의 안전성이 강화되었다.
+ */
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
-    /**
-     * 스프링의 의존성 주입(Dependency Injection, DI)을 위한 어노테이션
-     * 게시글 데이터 접근을 위한 JPA 리포지토리
-     * <p>
-     * BoardRepository의 인스턴스가 자동으로 주입된다.
-     * ReplyRepository의 인스턴스가 자동으로 주입된다.
-     * UserRepository의 인스턴스가 자동으로 주입된다.
-     */
-    @Autowired
-    private BoardRepository boardRepository; // 의존성 주입(DI)
+    private final BoardRepository boardRepository; // 생성자 주입을 통한 의존성 주입
+    private final ReplyRepository replyRepository; // 생성자 주입을 통한 의존성 주입
 
-    @Autowired
-    private ReplyRepository replyRepository; // 의존성 주입(DI)
-
-    @Autowired
-    private UserRepository userRepository; // 의존성 주입(DI)
+    // 생성자 주입 방식 예시 (Lombok의 @RequiredArgsConstructor가 이를 대체함)
+    // public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
+    //     this.boardRepository = bRepo;
+    //     this.replyRepository = rRepo;
+    // }
 
     /**
      * 사용자가 작성한 게시글 데이터를 받아 데이터베이스에 저장하는 로직을 처리하는 글쓰기 메서드
