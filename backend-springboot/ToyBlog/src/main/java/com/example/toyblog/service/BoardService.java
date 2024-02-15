@@ -1,7 +1,6 @@
 package com.example.toyblog.service;
 
 import com.example.toyblog.dto.ReplySaveRequestDto;
-import com.example.toyblog.model.Reply;
 import com.example.toyblog.repository.ReplyRepository;
 import com.example.toyblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.toyblog.model.User;
 import com.example.toyblog.model.Board;
 import com.example.toyblog.repository.BoardRepository;
-
-import java.util.List;
 
 /**
  * ======================================
@@ -29,6 +26,7 @@ import java.util.List;
  * 67강(블로그 프로젝트) - 댓글 목록 뿌리기
  * 68강(블로그 프로젝트) - 댓글 작성하기
  * 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기
+ * 70강(블로그 프로젝트) - 댓글 작성시 네이티브 쿼리 사용해보기
  * ======================================
  */
 
@@ -146,39 +144,21 @@ public class BoardService {
     /**
      * 댓글 저장을 위한 API 메서드
      * 클라이언트로부터 받은 댓글 데이터(DTO)를 처리하여 데이터베이스에 저장한다.
+     * 이전 구현 방식(69강)에서 JPA의 save 메서드를 사용했으나, 현재 댓글 기능을 네이티브 쿼리로 재구현
      *
      * @Transactional 어노테이션을 사용하여 데이터베이스 트랜잭션을 관리한다.
-     * 댓글 작성에 필요한 사용자와 게시글 정보를 데이터베이스에서 찾고, 찾을 수 없는 경우 예외를 발생시킨다.
-     * 댓글 객체를 생성하고 데이터베이스에 저장한다.
-     * JPA의 영속성 컨텍스트에 의해 관리되는 객체의 상태를 변경하며,
-     * 트랜잭션이 종료될 때 변경된 사항이 '더티 체킹(Dirty Checking)'에 의해 데이터베이스에 자동으로 반영된다.
+     * 이 메서드에서는 네이티브 쿼리를 사용하여 댓글 데이터를 데이터베이스에 직접 저장한다.
+     * 네이티브 쿼리를 사용함으로써, JPA의 추상화를 벗어나 데이터베이스와 직접적으로 상호작용한다.
+     * 이는 복잡한 쿼리나 데이터베이스에 특화된 기능을 사용해야 할 때 유용하다.
      *
-     * @param replySaveRequestDto 클라이언트로부터 받은 댓글 데이터를 담고 있는 DTO
+     * @param replySaveRequestDto 클라이언트로부터 받은 댓글 데이터를 담고 있는 DTO.
+     *                            이 DTO는 댓글 작성자의 사용자 ID, 게시글 ID, 댓글 내용을 포함한다.
      */
     @Transactional
     public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
-
-        // 사용자 ID를 통해 유저 엔티티를 데이터베이스에서 찾고, 없을 경우 예외 발생
-        User user = userRepository.findById(replySaveRequestDto.getUserId())
-                .orElseThrow(() -> {
-                    return new IllegalArgumentException("댓글 쓰기 실패: 유저 ID를 찾을 수 없습니다.");
-                }); // 유저 엔티티 영속화 완료
-
-        // 게시글 ID를 통해 게시글 엔티티를 데이터베이스에서 찾고, 없을 경우 예외 발생
-        Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
-                .orElseThrow(() -> {
-                    return new IllegalArgumentException("댓글 쓰기 실패: 게시글 ID를 찾을 수 없습니다.");
-                }); // 게시글 엔티티 영속화 완료
-
-        // 댓글 객체 생성 및 초기화
-        Reply reply = Reply.builder()
-                .user(user)
-                .board(board)
-                .content(replySaveRequestDto.getContent())
-                .build();
-
-        // 생성된 댓글 객체를 데이터베이스에 저장
-        replyRepository.save(reply);
+        // 네이티브 쿼리를 사용하여 댓글을 데이터베이스에 저장
+        replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
+
 
 } // end of class

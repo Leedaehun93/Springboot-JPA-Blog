@@ -14,6 +14,7 @@ import java.sql.Timestamp;
  * Note :
  * 21강(블로그 프로젝트) - Reply 테이블 생성
  * - User, Board 모델 클래스와 동일한 부분은 주석 설명 생략
+ * 70강(블로그 프로젝트) - 댓글 작성시 네이티브 쿼리 사용해보기
  * ======================================
  */
 @Builder
@@ -61,5 +62,24 @@ public class Reply {
      */
     @CreationTimestamp
     private Timestamp createDate;
+
+    /**
+     * Reply 객체의 문자열 표현을 제공하는 메서드.
+     * 이 메서드는 객체의 필드 값을 포함한 문자열을 반환하여,
+     * 객체의 현재 상태를 쉽게 확인할 수 있게 해준다.
+     * (디버깅, 로깅, 시스템 모니터링 등에서 객체의 상태를 표시하는 데 유용)
+     *
+     * @return Reply 객체의 상태를 나타내는 문자열.
+     */
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", board=" + board +
+                ", user=" + user +
+                ", createDate=" + createDate +
+                '}';
+    }
 
 } // end of class

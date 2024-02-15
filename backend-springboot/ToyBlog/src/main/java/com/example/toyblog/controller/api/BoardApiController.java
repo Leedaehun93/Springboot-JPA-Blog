@@ -2,7 +2,6 @@ package com.example.toyblog.controller.api;
 
 import com.example.toyblog.config.auth.PrincipalDetail;
 import com.example.toyblog.dto.ReplySaveRequestDto;
-import com.example.toyblog.model.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
