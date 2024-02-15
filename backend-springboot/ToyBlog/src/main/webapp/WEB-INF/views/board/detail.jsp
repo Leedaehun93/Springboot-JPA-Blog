@@ -5,6 +5,7 @@
 <!-- Note : 66강(블로그 프로젝트) - 댓글 디자인하기 -->
 <!-- Note : 67강(블로그 프로젝트) - 댓글 목록 뿌리기 -->
 <!-- Note : 68강(블로그 프로젝트) - 댓글 작성하기 -->
+<!-- Note : 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기 -->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- header.jsp, footer.jsp include 상위 경로 다름 --%>
@@ -45,11 +46,16 @@
     <div>
         <div class="card">
             <form>
+                <!-- 현재 로그인한 사용자의 ID를 숨겨진 필드로 저장 -->
+                <input type="hidden" id="userId" value="${principal.user.id}"/>
+                <!-- 현재 보고 있는 게시글의 ID를 숨겨진 필드로 저장 -->
                 <input type="hidden" id="boardId" value="${board.id}"/>
                 <div class="card-body">
-                    <textarea id="reply-content" class="from-control" rows="1"></textarea>
+                    <!-- 댓글 입력을 위한 텍스트 영역 -->
+                    <textarea id="reply-content" class="form-control" rows="1"></textarea>
                 </div>
                 <div class="card-footer">
+                    <!-- 댓글 등록 버튼 -->
                     <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
                 </div>
             </form>
@@ -68,7 +74,7 @@
                     <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
                         <!-- 댓글 내용 테스트를 위한 하드 코딩 -->
                             <%--  <div>댓글 내용입니다!!</div> --%>
-                        <%-- 서버로부터 받은 각 댓글의 내용을 웹 페이지에 표시 --%>
+                            <%-- 서버로부터 받은 각 댓글의 내용을 웹 페이지에 표시 --%>
                         <div>${reply.content}</div>
                         <div class="d-flex">
                             <!-- 작성자 정보 표시 -->

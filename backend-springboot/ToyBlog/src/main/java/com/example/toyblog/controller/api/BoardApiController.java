@@ -1,6 +1,7 @@
 package com.example.toyblog.controller.api;
 
 import com.example.toyblog.config.auth.PrincipalDetail;
+import com.example.toyblog.dto.ReplySaveRequestDto;
 import com.example.toyblog.model.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,19 +86,17 @@ public class BoardApiController {
 
     /**
      * 댓글 저장을 위한 API 엔드포인트
-     * 클라이언트로부터 받은 댓글 데이터를 처리하여 데이터베이스에 저장한다.
-     * URL 경로에서 게시글의 ID를 추출하고, 요청 본문에서 댓글 데이터를 받아 처리한다.
-     * 인증된 사용자의 정보는 @AuthenticationPrincipal을 통해 받아 사용한다.
+     * 클라이언트로부터 받은 댓글 데이터(DTO)를 처리하여 데이터베이스에 저장한다.
+     * 이 메서드는 @PostMapping 어노테이션을 사용하여 POST 요청을 처리한다.
+     * ReplySaveRequestDto를 통해 게시글 ID, 사용자 ID, 댓글 내용 의 데이터를 받아온다.
      * 처리 완료 후, 요청의 성공 여부를 ResponseDto를 통해 반환한다.
      *
-     * @param boardId URL 경로에서 추출된 게시글의 ID
-     * @param reply 요청 본문에서 받아온 댓글 데이터
-     * @param principal 인증된 사용자의 정보를 담고 있는 PrincipalDetail 객체
+     * @param replySaveRequestDto 요청 본문에서 받아온 댓글 데이터를 담고 있는 DTO
      * @return 처리 결과를 나타내는 ResponseDto 객체. 요청이 성공적으로 처리되었음을 나타낸다.
      */
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
-        boardService. 댓글쓰기(principal.getUser(), boardId, reply);
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+        boardService. 댓글쓰기(replySaveRequestDto);
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
     }
