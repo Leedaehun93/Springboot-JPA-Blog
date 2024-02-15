@@ -6,6 +6,7 @@
 <!-- Note : 67강(블로그 프로젝트) - 댓글 목록 뿌리기 -->
 <!-- Note : 68강(블로그 프로젝트) - 댓글 작성하기 -->
 <!-- Note : 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기 -->
+<!-- Note : 73강(블로그 프로젝트) - 댓글 삭제 마지막 강 -->
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- header.jsp, footer.jsp include 상위 경로 다름 --%>
@@ -15,7 +16,7 @@
 
 <div class="container">
     <%-- button Start --%>
-    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+    <button class="btn btn-secondary" onClick="history.back()">돌아가기</button>
     <c:if test="${board.user.id == principal.user.id}">
         <a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
         <button id="btn-delete" class="btn btn-danger">삭제</button>
@@ -66,8 +67,7 @@
     <div>
         <div class="card">
             <div class="card-header">댓글 리스트</div>
-            <%-- HTML 파일에서 개발자가 자신이 생성한 ID에 대해 특별한 네이밍 규칙으로는 ID에는 '--' (하이픈 두 개)를 사용하여 가독성을 높이는 방법이 있다. --%>
-            <ul id="reply--box" class="list-group">
+            <ul id="reply-box" class="list-group">
                 <!-- 댓글을 반복하여 리스트로 표시. 서버로부터 전달받은 댓글 목록(board.replys)을 순회한다. -->
                 <c:forEach var="reply" items="${board.replys}">
                     <!-- 각 댓글에 고유 ID(reply.id)를 할당하여 DOM에서 쉽게 식별할 수 있게 함. -->
@@ -78,9 +78,12 @@
                         <div>${reply.content}</div>
                         <div class="d-flex">
                             <!-- 작성자 정보 표시 -->
-                            <div class="font-italic">작성자 : ${reply.user.username} &nbsp;</div>
+                            <div class="font-italic">작성자 : ${reply.user.username} &nbsp;&nbsp;</div>
                             <!-- 댓글 삭제 버튼 -->
-                            <button class="badge">삭제</button>
+                            <!-- 댓글 삭제 버튼. 현재 로그인한 사용자가 댓글 작성자일 경우에만 표시됨 -->
+                            <c:if test="${reply.user.id eq principal.user.id}">
+                                <button onClick="index.replyDelete(${board.id}, ${reply.id})" class="badge">삭제</button>
+                            </c:if>
                         </div>
                     </li>
                 </c:forEach>

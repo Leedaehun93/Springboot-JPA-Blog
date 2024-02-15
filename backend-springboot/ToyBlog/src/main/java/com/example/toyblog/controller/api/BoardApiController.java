@@ -18,6 +18,7 @@ import com.example.toyblog.service.BoardService;
  * 57강(블로그 프로젝트) - 글 삭제하기
  * 58강(블로그 프로젝트) - 글 수정하기
  * 68강(블로그 프로젝트) - 댓글 작성하기
+ * 73강(블로그 프로젝트) - 댓글 삭제 마지막 강
  * ======================================
  */
 
@@ -97,6 +98,20 @@ public class BoardApiController {
     public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
         boardService. 댓글쓰기(replySaveRequestDto);
         // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson이 실행)
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
+    }
+
+    /**
+     * 댓글 삭제를 위한 API 엔드포인트
+     * 클라이언트로부터 받은 DELETE 요청을 처리하여 특정 댓글을 삭제한다.
+     *
+     * @param replyId URL 경로 변수에서 추출된 댓글의 ID.
+     *               이 ID를 사용하여 댓글을 식별하고 삭제한다.
+     * @return 삭제 작업의 성공 여부를 나타내는 ResponseDto 객체. HttpStatus.OK 값을 포함하여 성공적으로 처리되었음을 나타낸다.
+     */
+    @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+    public ResponseDto<Integer>replyDelete(@PathVariable int replyId) {
+        boardService.댓글삭제(replyId); // 댓글 삭제 로직 수행
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 요청 처리 결과와 데이터를 포함하는 ResponseDto 반환 // 200 정상 실행
     }
 

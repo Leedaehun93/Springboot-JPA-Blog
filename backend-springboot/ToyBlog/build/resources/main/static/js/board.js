@@ -7,6 +7,7 @@
  * 58강(블로그 프로젝트) - 글 수정하기
  * 68강(블로그 프로젝트) - 댓글 작성하기
  * 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기
+ * 73강(블로그 프로젝트) - 댓글 삭제 마지막 강
  * ======================================
  */
 
@@ -118,8 +119,8 @@ let index = {
          * 사용자 입력 데이터를 JSON 객체로 만들어 서버에 전송한다.
          */
         let data = {
-            userId : $("#userId").val(),
-            boardId : $("#boardId").val(),
+            userId: $("#userId").val(),
+            boardId: $("#boardId").val(),
             /**
              * TODO: [오류 해결] 문제 : content: $("#reply-content").val()에서 undefined 반환
              *  - 참고 : 68강(블로그 프로젝트) - 댓글 작성하기
@@ -137,11 +138,36 @@ let index = {
             url: `/api/board/${data.boardId}/reply`, // 댓글을 저장하는 서버의 API 주소
             data: JSON.stringify(data), // 전송할 데이터. JSON 형태로 변환
             contentType: "application/json; charset=utf-8", // 내용 유형 지정
-            dataType: "json" // 데이터 유형 지정
+            dataType: "json" // 응답 데이터 유형 지정
         }).done(function (resp) {
             // 요청이 성공하였을 때 실행된다.
             alert("댓글작성이 완료되었습니다."); // 성공 메시지 표시 // 화면 테스트 완료
             location.href = `/board/${data.boardId}`; // 해당 게시글로 페이지 리다이렉션
+        }).fail(function (error) {
+            // 요청이 실패하였을 때 실행된다.
+            alert(JSON.stringify(error)); // 오류 메시지 표시
+        });
+    },
+
+    /**
+     * 댓글 삭제 기능을 수행하는 함수.
+     * 선택된 댓글을 삭제하기 위해 서버에 DELETE 요청을 보낸다.
+     *
+     * @param boardId 댓글이 속한 게시글의 ID.
+     * @param replyId 삭제할 댓글의 ID.
+     */
+    replyDelete: function (boardId, replyId) {
+        /**
+         * Ajax를 통해 서버에 글쓰기 데이터를 비동기적으로 전송한다.
+         */
+        $.ajax({
+            type: "DELETE",
+            url: `/api/board/${boardId}/reply/${replyId}`,  // 댓글 삭제를 위한 서버의 API 주소
+            dataType: "json" // 응답 데이터 유형 지정
+        }).done(function (resp) {
+            // 요청이 성공하였을 때 실행된다.
+            alert("댓글삭제 성공"); // 성공 메시지 표시 // 화면 테스트 완료
+            location.href = `/board/${boardId}`; // 해당 게시글로 페이지 리다이렉션
         }).fail(function (error) {
             // 요청이 실패하였을 때 실행된다.
             alert(JSON.stringify(error)); // 오류 메시지 표시

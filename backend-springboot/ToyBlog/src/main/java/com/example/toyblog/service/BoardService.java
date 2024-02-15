@@ -29,6 +29,7 @@ import com.example.toyblog.repository.BoardRepository;
  * 69강(블로그 프로젝트 ) - 댓글 작성시 Dto 사용해보기
  * 70강(블로그 프로젝트) - 댓글 작성시 네이티브 쿼리 사용해보기
  * 71강(블로그 프로젝트) - @Autowired의 원리
+ * 73강(블로그 프로젝트) - 댓글 삭제 마지막 강
  * ======================================
  */
 
@@ -163,6 +164,21 @@ public class BoardService {
     public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
         // 네이티브 쿼리를 사용하여 댓글을 데이터베이스에 저장
         replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+    }
+    /**
+     * 댓글을 삭제하는 비즈니스 로직을 수행하는 메서드
+     *
+     * @Transactional 어노테이션은 이 메서드의 실행을 트랜잭션으로 관리한다.
+     * 이는 메서드 내에서 발생하는 모든 데이터베이스 연산이 하나의 트랜잭션으로 처리되며,
+     * 오류 발생 시 자동으로 롤백된다.
+     *
+     * @param replyId 삭제할 댓글의 ID.
+     * 메서드는 replyId를 사용하여 해당 댓글을 데이터베이스에서 삭제한다.
+     */
+    @Transactional
+    public void 댓글삭제(int replyId) {
+        // 주어진 ID를 가진 댓글을 데이터베이스에서 삭제
+        replyRepository.deleteById(replyId);
     }
 
 } // end of class
