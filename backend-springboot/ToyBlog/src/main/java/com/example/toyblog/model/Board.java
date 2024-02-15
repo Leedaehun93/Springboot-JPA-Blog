@@ -22,6 +22,7 @@ import java.util.List;
  * 67강(블로그 프로젝트) - 댓글 목록 뿌리기
  * - 댓글 Reply 무한참조방지 (엔티티 간 순환 참조를 방지) 중 @JsonIgnoreProperties 로 코드 구현
  * 68강(블로그 프로젝트) - 댓글 작성하기
+ * 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
  * ======================================
  */
 @Builder
@@ -87,7 +88,13 @@ public class Board {
      *  @OrderBy("id desc") :
      *  Reply 댓글의 게시 글을 id로 내림차순으로 정렬
      */
-    @OneToMany(mappedBy="board", fetch = FetchType.EAGER)
+    /**
+     * TODO: [오류 해결] 문제 : 게시글(Board) 삭제 시 연관된 댓글(Reply)이 삭제되지 않는 문제
+     *  - 참고 : 72강(블로그 프로젝트) - 회원가입 문제와 게시글 삭제 문제 해결
+     *  - 원인 : 회원가입 처리 함수 서버 측에서 발생하는 exceptions.SQLError.createSQLException에 대한 클라이언트 측 처리 미비.
+     *  - 해결 : Board 엔티티 내의 Reply 관련 필드 수정 @OneToMany 관계에 cascade = CascadeType.REMOVE 옵션 추가
+     */
+    @OneToMany(mappedBy="board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // mappedBy 연관관계의 주인이 아니다.
     @JsonIgnoreProperties({"board"})
     @OrderBy("id desc")
     private List<Reply> replys; // 한 개의 Board 에는 여러 개의 Reply 가 있을 수 있다.

@@ -165,5 +165,4 @@ public class BoardService {
         replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
 
-
 } // end of class
